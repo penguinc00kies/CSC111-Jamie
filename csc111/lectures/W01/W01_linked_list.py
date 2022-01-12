@@ -50,6 +50,11 @@ class LinkedList:
     ################################################################################################
     def print_items(self) -> None:
         """Print out each item in this linked list."""
+        curr = self._first
+
+        while curr is not None:
+            print(curr.item)
+            curr = curr.next
 
     def to_list(self) -> list:
         """Return a built-in Python list containing the items of this linked list.
@@ -66,6 +71,14 @@ class LinkedList:
         Preconditions:
             - all elements in this linked list are integers
         """
+        curr = self._first
+        sum_so_far = 0
+
+        while curr is not None:
+            sum_so_far = sum_so_far + curr.item
+            curr = curr.next
+
+        return sum_so_far
 
     ################################################################################################
     # Exercise 2
@@ -89,6 +102,15 @@ class LinkedList:
         # import the math module and initialize your accumulator
         # to -math.inf (negative infinity).
 
+        maximum = -math.inf
+        curr = self._first
+
+        while curr is not None:
+            maximum = max(max, curr.item)
+            curr = curr.next
+
+        return maximum
+
     def __contains__(self, item: Any) -> bool:
         """Return whether item is in this linked list.
 
@@ -102,6 +124,15 @@ class LinkedList:
         True
         """
 
+        curr = self._first
+
+        while curr is not None:
+            if curr.item == item:
+                return True
+            curr = curr.next
+
+        return False
+
     def __getitem__(self, i: int) -> Any:
         """Return the item stored at index i in this linked list.
 
@@ -111,13 +142,24 @@ class LinkedList:
             - i >= 0
         """
 
+        curr = self._first
+        index_so_far = 0
+
+        while curr is not None:
+            if index_so_far == i:
+                return curr.item
+            curr = curr.next
+            index_so_far += 1
+
+        raise IndexError
+
 
 ################################################################################################
 # Exercise 1
 ################################################################################################
-node1 = _Node('a')
-node2 = _Node('b')
-node3 = _Node('c')
+node1 = _Node(5)
+node2 = _Node(7)
+node3 = _Node(2)
 linky = LinkedList()  # linky is empty
 
 ################################################################################################
