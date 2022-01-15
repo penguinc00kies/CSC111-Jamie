@@ -183,46 +183,51 @@ class LinkedList:
 
 def test_remove_first_when_empty() -> None:
     """Test remove_first when given an empty linked list"""
-    l = LinkedList([])
+    linky = LinkedList([])
     with pytest.raises(IndexError):
-        l.remove_first()
+        linky.remove_first()
 
 
-def test_remove_first_when_length_one() -> None:
+def test_remove_first_when_one_item() -> None:
     """Test remove_first when given a linked list with one item"""
-    l = LinkedList([1])
-    assert l.remove_first() == 1
-    assert l._first is None
+    linky = LinkedList([1])
+    assert linky.remove_first() == 1
+    with pytest.raises(IndexError):
+        linky.remove_first()
 
 
-def test_remove_first_when_length_eight() -> None:
+def test_remove_first_eight_items() -> None:
     """Test remove_first when given a linked list with eight items"""
-    l = LinkedList([8, 7, 6, 5, 4, 3, 2, 1])
+    linky = LinkedList([8, 7, 6, 5, 4, 3, 2, 1])
     for i in range(8, 0, -1):
-        assert l.remove_first() == i
-    assert l._first is None
+        assert linky.remove_first() == i
+    with pytest.raises(IndexError):
+        linky.remove_first()
 
 
 def test_remove_last_when_empty() -> None:
     """Test remove_last when given an empty linked list"""
-    l = LinkedList([])
+    linky = LinkedList([])
     with pytest.raises(IndexError):
-        l.remove_last()
+        linky.remove_last()
 
 
-def test_remove_last_when_length_one() -> None:
+def test_remove_last_one_item() -> None:
     """Test remove_first when given a linked list with one item"""
-    l = LinkedList([1])
-    assert l.remove_last() == 1
-    assert l._first is None
+    linky = LinkedList([1])
+    assert linky.remove_last() == 1
+    with pytest.raises(IndexError):
+        linky.remove_first()
 
 
-def test_remove_last_when_length_eight() -> None:
+def test_remove_last_eight_items() -> None:
     """Test remove_last when given a linked list with eight items"""
-    l = LinkedList([8, 7, 6, 5, 4, 3, 2, 1])
+    linky = LinkedList([8, 7, 6, 5, 4, 3, 2, 1])
     for i in range(1, 9):
-        assert l.remove_last() == i
-    assert l._first is None
+        assert linky.remove_last() == i
+    with pytest.raises(IndexError):
+        linky.remove_first()
+
 
 if __name__ == '__main__':
     import python_ta
