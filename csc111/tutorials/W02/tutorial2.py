@@ -319,9 +319,17 @@ class LinkedList2(LinkedList):
         super().__init__(items)
         self._length = len(list(items))
 
+    def __len__(self) -> int:
+        return self._length
+
     def append(self, item: Any) -> None:
         super().append(item)
         self._length = self._length + 1
+
+    def pop(self, i: int) -> Any:
+        popped = super().pop(i)
+        self._length = self._length - 1
+        return popped
 
 
 if __name__ == '__main__':
