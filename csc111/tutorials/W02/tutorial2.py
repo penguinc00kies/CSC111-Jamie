@@ -316,17 +316,11 @@ class LinkedList2(LinkedList):
     _length: int
 
     def __init__(self, items: Iterable) -> None:
-        self._first = None
-        self._length = 0
-
-        for i in range(len(items) - 1, -1, -1):
-            new_node = _Node(items[i])
-            new_node.next = self._first
-            self._first = new_node
-            self._length = self._length + 1
+        super().__init__(items)
+        self._length = len(list(items))
 
     def append(self, item: Any) -> None:
-        super(LinkedList2, self).append(item)
+        super().append(item)
         self._length = self._length + 1
 
 
