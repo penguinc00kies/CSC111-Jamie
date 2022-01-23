@@ -37,7 +37,7 @@ def formula(n: int) -> float:
     if n == 0:
         return 4.0
     else:
-        return formula(n - 1) + (4 * (-1) ** n)/(2 * n + 1)
+        return formula(n - 1) + (4 * (-1) ** n) / (2 * n + 1)
 
 
 def formula_multiple_args(n: int, a: float, b: float) -> float:
@@ -49,7 +49,7 @@ def formula_multiple_args(n: int, a: float, b: float) -> float:
     if n == 0:
         return 0.0
     else:
-        return a * formula_multiple_args(n-1, a, b) + b
+        return a * formula_multiple_args(n - 1, a, b) + b
 
 
 def formula_double_recursion(n: int, m: int) -> int:
@@ -59,7 +59,6 @@ def formula_double_recursion(n: int, m: int) -> int:
         - n >= 0
         - m >= 0
     """
-    # TODO: implement this function
     if n == 0:
         return m
     elif m == 0:
@@ -99,7 +98,7 @@ def create_list2(n: int, m: int) -> list:
     elif m == 0:
         return [n]
     else:
-        return [create_list2(n-1, m), create_list2(n, m-1)]
+        return [create_list2(n - 1, m), create_list2(n, m - 1)]
 
 
 if __name__ == '__main__':
