@@ -163,12 +163,30 @@ def items_at_depth(nested_list: Union[int, list], d: int) -> list[int]:
 
     Preconditions:
         - d >= 0
+
+    >>> items_at_depth(6, 0)
+    [6]
+    >>> items_at_depth(6, 6)
+    []
+    >>> items_at_depth([10, [[20]], [[30], 40]], 0)
+    []
+    >>> items_at_depth([10, [[20]], [[30], 40]], 3)
+    [20, 30]
     """
     if isinstance(nested_list, int):
-        ...
+        if d == 0:
+            return [nested_list]
+        else:
+            return []
     else:
-        ...
-
+        if d == 0:
+            return []
+        else:
+            items_so_far = []
+            for sublist in nested_list:
+                rec_value = items_at_depth(sublist, d - 1)
+                items_so_far.extend(rec_value)
+            return items_so_far
 
 ################################################################################################
 # From the Notes - 12.5
