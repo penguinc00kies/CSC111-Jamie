@@ -190,6 +190,7 @@ class CountLinkedList(LinkedList):
             prev.next = curr.next
 
             found_item = curr
+
             curr = self._first
             prev = None
 
