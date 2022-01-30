@@ -18,6 +18,7 @@ please consult our Course Syllabus.
 
 This file is Copyright (c) 2021 David Liu and Isaac Waller.
 """
+import math
 import random
 from typing import Tuple
 
@@ -32,9 +33,10 @@ from a1_linked_list import LinkedList, _Node
 # You should not change SCREEN_SIZE or GRID_SIZE, but may add your own constants underneath.
 SCREEN_SIZE = (800, 800)  # (width, height)
 GRID_SIZE = 8
-NODE_WIDTH = 40
-NODE_HEIGHT = 20
+NODE_WIDTH = 60
+NODE_HEIGHT = 30
 NODE_COLOR = (179, 52, 90)
+LINE_COLOR = (38, 48, 92)
 
 ################################################################################
 # Pygame helper functions (don't change these!)
@@ -107,7 +109,9 @@ def draw_node(screen: pygame.Surface, node: _Node, pos: Tuple[int, int]) -> None
     We strongly recommend initializing new constants at the top of this file to represent
     node width, height, and colour.
     """
-    pygame.draw.rect(screen, NODE_COLOR, pygame.Rect(pos[0], pos[1], NODE_WIDTH, NODE_HEIGHT))
+    pygame.draw.rect(screen, NODE_COLOR, pygame.Rect(pos[0], pos[1], NODE_WIDTH/2, NODE_HEIGHT), width=2)
+    pygame.draw.rect(screen, NODE_COLOR, pygame.Rect(pos[0] + NODE_WIDTH/2, pos[1], NODE_WIDTH/2, NODE_HEIGHT), width=2)
+    draw_text(screen, str(node.item), (pos[0] + int(NODE_HEIGHT/10), pos[1] + int(NODE_HEIGHT/4)))
 
 
 def draw_link(screen: pygame.Surface, start: Tuple[int, int], end: Tuple[int, int]) -> None:
@@ -119,6 +123,8 @@ def draw_link(screen: pygame.Surface, start: Tuple[int, int], end: Tuple[int, in
     The rest of your link can be a simple line; you may, but are not required, to draw an
     arrowhead at the end of the line.
     """
+    pygame.draw.circle(screen, LINE_COLOR, start, int(NODE_HEIGHT/6))
+    pygame.draw.line(screen, LINE_COLOR, start, end, width=3)
 
 
 def draw_three_nodes(screen_size: Tuple[int, int]) -> None:
@@ -138,9 +144,15 @@ def draw_three_nodes(screen_size: Tuple[int, int]) -> None:
     node1.next = node2
     node2.next = node3
 
-    # TODO: Complete this function so that it draws the above three nodes and the
-    #       links between them and "None". Once you are done, remove this comment.
-    ...
+    draw_node(screen, node1, (10, 10))
+    draw_link(screen, (10 + int(NODE_WIDTH * 0.75), 10 + int(NODE_WIDTH * 0.25)), (10 + 100, 10 + int(NODE_WIDTH * 0.25)))
+    draw_node(screen, node2, (110, 10))
+    draw_link(screen, (110 + int(NODE_WIDTH * 0.75), 10 + int(NODE_WIDTH * 0.25)), (110 + 100, 10 + int(NODE_WIDTH * 0.25)))
+    draw_node(screen, node3, (210, 10))
+    draw_link(screen, (210 + int(NODE_WIDTH * 0.75), 10 + int(NODE_WIDTH * 0.25)), (210 + 100, 10 + int(NODE_WIDTH * 0.25)))
+    draw_text(screen, 'NONE', (310, 20))
+    draw_grid(screen)
+
 
     # Don't change the code below (it simply waits until you close the Pygame window)
     pygame.display.flip()
@@ -177,12 +189,41 @@ def draw_list(screen: pygame.Surface, lst: LinkedList, show_grid: bool = False) 
     curr = lst._first
     curr_index = 0
 
+    row_place = 1
+    x_loc = 10
+    y_loc = 10
+
     while curr is not None:
-        ...
+        draw_node(screen, curr, (x_loc, y_loc))
+        row_place += 1
+
+        if row_place == 9:
+            draw_link(screen, (x_loc + int(NODE_WIDTH * 0.75), y_loc + int(NODE_WIDTH * 0.25)), (x_loc + int(NODE_WIDTH * 0.75), y_loc + int(NODE_WIDTH)))
+            pygame.draw.line(screen, LINE_COLOR, (x_loc + int(NODE_WIDTH * 0.75), y_loc + int(NODE_WIDTH)), (10 + int(NODE_WIDTH/4), y_loc + int(NODE_WIDTH)), width=3)
+            row_place = 1
+            y_loc += int(SCREEN_SIZE[1]/GRID_SIZE)
+            x_loc = 10
+            pygame.draw.line(screen, LINE_COLOR, (x_loc + int(NODE_WIDTH/4), y_loc + int(NODE_WIDTH) - int(SCREEN_SIZE[1]/GRID_SIZE)), (x_loc + int(NODE_WIDTH/4), y_loc), width=3)
+        else:
+            draw_link(screen, (x_loc + int(NODE_WIDTH * 0.75), y_loc + int(NODE_WIDTH * 0.25)), (x_loc + int(SCREEN_SIZE[0]/GRID_SIZE), y_loc + int(NODE_WIDTH * 0.25)))
+            x_loc += int(SCREEN_SIZE[0]/GRID_SIZE)
 
         curr = curr.next
         curr_index = curr_index + 1
 
+    draw_text(screen, 'NONE', (x_loc, y_loc + 10))
+
+
+def run_draw_list(screen: pygame.Surface) -> None:
+    """Test the function draw_list by passing it a list 63 elements long and turning the grid on"""
+    linky = LinkedList([])
+    for i in range(0, 63):
+        linky.append(i)
+
+    draw_list(screen, linky, show_grid=True)
+    pygame.display.flip()
+    pygame.event.wait()
+    pygame.display.quit()
 
 ################################################################################
 # 3. Handling user events
@@ -243,6 +284,18 @@ def handle_mouse_click(lst: LinkedList, event: pygame.event.Event,
         - screen_size[0] >= 200
         - screen_size[1] >= 200
     """
+    cell_length = SCREEN_SIZE[0]/GRID_SIZE
+    cell_height = SCREEN_SIZE[1]/GRID_SIZE
+    row = math.ceil(event.pos[0]/cell_length)
+    column = math.ceil(event.pos[1]/cell_height)
+    index_number = (column - 1) * 8 + row - 1
+
+    if index_number >= len(lst):
+        return None
+    if event.button == 1:
+        lst.pop(index_number)
+    if event.button == 3:
+        lst.__contains__(lst[index_number])
 
 
 # if __name__ == '__main__':
