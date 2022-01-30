@@ -32,7 +32,9 @@ from a1_linked_list import LinkedList, _Node
 # You should not change SCREEN_SIZE or GRID_SIZE, but may add your own constants underneath.
 SCREEN_SIZE = (800, 800)  # (width, height)
 GRID_SIZE = 8
-
+NODE_WIDTH = 40
+NODE_HEIGHT = 20
+NODE_COLOR = (179, 52, 90)
 
 ################################################################################
 # Pygame helper functions (don't change these!)
@@ -105,6 +107,7 @@ def draw_node(screen: pygame.Surface, node: _Node, pos: Tuple[int, int]) -> None
     We strongly recommend initializing new constants at the top of this file to represent
     node width, height, and colour.
     """
+    pygame.draw.rect(screen, NODE_COLOR, pygame.Rect(pos[0], pos[1], NODE_WIDTH, NODE_HEIGHT))
 
 
 def draw_link(screen: pygame.Surface, start: Tuple[int, int], end: Tuple[int, int]) -> None:
@@ -242,15 +245,15 @@ def handle_mouse_click(lst: LinkedList, event: pygame.event.Event,
     """
 
 
-if __name__ == '__main__':
-    import python_ta
-    python_ta.check_all(config={
-        'max-line-length': 100,
-        'disable': ['E1136'],
-        'exclude-protected': ['_first'],
-        'extra-imports': ['random', 'pygame', 'pygame.colordict', 'a1_linked_list'],
-        'generated-members': ['pygame.*']
-    })
-
-    import python_ta.contracts
-    python_ta.contracts.check_all_contracts()
+# if __name__ == '__main__':
+#     import python_ta
+#     python_ta.check_all(config={
+#         'max-line-length': 100,
+#         'disable': ['E1136'],
+#         'exclude-protected': ['_first'],
+#         'extra-imports': ['random', 'pygame', 'pygame.colordict', 'a1_linked_list'],
+#         'generated-members': ['pygame.*']
+#     })
+#
+#     import python_ta.contracts
+#     python_ta.contracts.check_all_contracts()
