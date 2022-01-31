@@ -136,14 +136,13 @@ class Tree:
         elif self._subtrees == []:
             return self._root
         else:
-            max = 0
-            if self._root > max:
-                max = self._root
+            maximum = 0
+            if self._root > maximum:
+                maximum = self._root
             for subtree in self._subtrees:
-                if subtree.maximum() > max:
-                    max = subtree.maximum()
-            return max
-            #return max(subtree.maximum() for subtree in self._subtrees)
+                if subtree.maximum() > maximum:
+                    maximum = subtree.maximum()
+            return maximum
 
     def height(self: Tree) -> int:
         """Return the height of this tree.
@@ -154,7 +153,6 @@ class Tree:
         >>> t1.height()
         1
         """
-        # TODO: implement this method
         if self.is_empty():
             return 0
         elif self._subtrees == []:
@@ -186,15 +184,15 @@ class Tree:
             return False
 
 
-# if __name__ == '__main__':
-#     import python_ta.contracts
-#     python_ta.contracts.check_all_contracts()
-#
-#     import doctest
-#     doctest.testmod()
-#
-#     import python_ta
-#     python_ta.check_all(config={
-#         'max-line-length': 100,
-#         'disable': ['E1136']
-#     })
+if __name__ == '__main__':
+    import python_ta.contracts
+    python_ta.contracts.check_all_contracts()
+
+    import doctest
+    doctest.testmod()
+
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 100,
+        'disable': ['E1136']
+    })
