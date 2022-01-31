@@ -18,7 +18,6 @@ please consult our Course Syllabus.
 
 This file is Copyright (c) 2021 David Liu and Isaac Waller.
 """
-import math
 import random
 from typing import Tuple
 
@@ -41,6 +40,8 @@ LINE_COLOR = (38, 48, 92)
 ################################################################################
 # Pygame helper functions (don't change these!)
 ################################################################################
+
+
 def initialize_screen(screen_size: tuple[int, int], allowed: list) -> pygame.Surface:
     """Initialize pygame and the display window.
 
@@ -109,9 +110,12 @@ def draw_node(screen: pygame.Surface, node: _Node, pos: Tuple[int, int]) -> None
     We strongly recommend initializing new constants at the top of this file to represent
     node width, height, and colour.
     """
-    pygame.draw.rect(screen, NODE_COLOR, pygame.Rect(pos[0], pos[1], NODE_WIDTH/2, NODE_HEIGHT), width=2)
-    pygame.draw.rect(screen, NODE_COLOR, pygame.Rect(pos[0] + NODE_WIDTH/2, pos[1], NODE_WIDTH/2, NODE_HEIGHT), width=2)
-    draw_text(screen, str(node.item), (pos[0] + int(NODE_HEIGHT/10), pos[1] + int(NODE_HEIGHT/4)))
+    pygame.draw.rect(screen, NODE_COLOR, pygame.Rect(pos[0], pos[1], NODE_WIDTH / 2, NODE_HEIGHT),
+                     width=2)
+    pygame.draw.rect(screen, NODE_COLOR, pygame.Rect(pos[0] + NODE_WIDTH / 2, pos[1],
+                                                     NODE_WIDTH / 2, NODE_HEIGHT), width=2)
+    draw_text(screen, str(node.item), (pos[0] + int(NODE_HEIGHT / 10),
+                                       pos[1] + int(NODE_HEIGHT / 4)))
 
 
 def draw_link(screen: pygame.Surface, start: Tuple[int, int], end: Tuple[int, int]) -> None:
@@ -123,7 +127,7 @@ def draw_link(screen: pygame.Surface, start: Tuple[int, int], end: Tuple[int, in
     The rest of your link can be a simple line; you may, but are not required, to draw an
     arrowhead at the end of the line.
     """
-    pygame.draw.circle(screen, LINE_COLOR, start, int(NODE_HEIGHT/6))
+    pygame.draw.circle(screen, LINE_COLOR, start, int(NODE_HEIGHT / 6))
     pygame.draw.line(screen, LINE_COLOR, start, end, width=3)
 
 
@@ -145,14 +149,16 @@ def draw_three_nodes(screen_size: Tuple[int, int]) -> None:
     node2.next = node3
 
     draw_node(screen, node1, (10, 10))
-    draw_link(screen, (10 + int(NODE_WIDTH * 0.75), 10 + int(NODE_WIDTH * 0.25)), (10 + 100, 10 + int(NODE_WIDTH * 0.25)))
+    draw_link(screen, (10 + int(NODE_WIDTH * 0.75), 10 + int(NODE_WIDTH * 0.25)),
+              (10 + 100, 10 + int(NODE_WIDTH * 0.25)))
     draw_node(screen, node2, (110, 10))
-    draw_link(screen, (110 + int(NODE_WIDTH * 0.75), 10 + int(NODE_WIDTH * 0.25)), (110 + 100, 10 + int(NODE_WIDTH * 0.25)))
+    draw_link(screen, (110 + int(NODE_WIDTH * 0.75), 10 + int(NODE_WIDTH * 0.25)),
+              (110 + 100, 10 + int(NODE_WIDTH * 0.25)))
     draw_node(screen, node3, (210, 10))
-    draw_link(screen, (210 + int(NODE_WIDTH * 0.75), 10 + int(NODE_WIDTH * 0.25)), (210 + 100, 10 + int(NODE_WIDTH * 0.25)))
+    draw_link(screen, (210 + int(NODE_WIDTH * 0.75), 10 + int(NODE_WIDTH * 0.25)),
+              (210 + 100, 10 + int(NODE_WIDTH * 0.25)))
     draw_text(screen, 'NONE', (310, 20))
     draw_grid(screen)
-
 
     # Don't change the code below (it simply waits until you close the Pygame window)
     pygame.display.flip()
@@ -198,15 +204,24 @@ def draw_list(screen: pygame.Surface, lst: LinkedList, show_grid: bool = False) 
         row_place += 1
 
         if row_place == 9:
-            draw_link(screen, (x_loc + int(NODE_WIDTH * 0.75), y_loc + int(NODE_WIDTH * 0.25)), (x_loc + int(NODE_WIDTH * 0.75), y_loc + int(NODE_WIDTH)))
-            pygame.draw.line(screen, LINE_COLOR, (x_loc + int(NODE_WIDTH * 0.75), y_loc + int(NODE_WIDTH)), (10 + int(NODE_WIDTH/4), y_loc + int(NODE_WIDTH)), width=3)
+            draw_link(screen, (x_loc + int(NODE_WIDTH * 0.75),
+                               y_loc + int(NODE_WIDTH * 0.25)),
+                      (x_loc + int(NODE_WIDTH * 0.75), y_loc + int(NODE_WIDTH)))
+            pygame.draw.line(screen, LINE_COLOR, (x_loc + int(NODE_WIDTH * 0.75),
+                                                  y_loc + int(NODE_WIDTH)),
+                             (10 + int(NODE_WIDTH / 4),
+                              y_loc + int(NODE_WIDTH)), width=3)
             row_place = 1
-            y_loc += int(SCREEN_SIZE[1]/GRID_SIZE)
+            y_loc += int(SCREEN_SIZE[1] / GRID_SIZE)
             x_loc = 10
-            pygame.draw.line(screen, LINE_COLOR, (x_loc + int(NODE_WIDTH/4), y_loc + int(NODE_WIDTH) - int(SCREEN_SIZE[1]/GRID_SIZE)), (x_loc + int(NODE_WIDTH/4), y_loc), width=3)
+            pygame.draw.line(screen, LINE_COLOR, (x_loc + int(NODE_WIDTH / 4),
+                                                  y_loc + int(NODE_WIDTH) - int
+                                                  (SCREEN_SIZE[1] / GRID_SIZE)),
+                             (x_loc + int(NODE_WIDTH / 4), y_loc), width=3)
         else:
-            draw_link(screen, (x_loc + int(NODE_WIDTH * 0.75), y_loc + int(NODE_WIDTH * 0.25)), (x_loc + int(SCREEN_SIZE[0]/GRID_SIZE), y_loc + int(NODE_WIDTH * 0.25)))
-            x_loc += int(SCREEN_SIZE[0]/GRID_SIZE)
+            draw_link(screen, (x_loc + int(NODE_WIDTH * 0.75), y_loc + int(NODE_WIDTH * 0.25)),
+                      (x_loc + int(SCREEN_SIZE[0] / GRID_SIZE), y_loc + int(NODE_WIDTH * 0.25)))
+            x_loc += int(SCREEN_SIZE[0] / GRID_SIZE)
 
         curr = curr.next
         curr_index = curr_index + 1
@@ -228,6 +243,8 @@ def run_draw_list(screen: pygame.Surface) -> None:
 ################################################################################
 # 3. Handling user events
 ################################################################################
+
+
 def run_visualization(screen_size: tuple[int, int], ll_class: type,
                       show_grid: bool = False) -> None:
     """Run the linked list visualization.
@@ -284,10 +301,10 @@ def handle_mouse_click(lst: LinkedList, event: pygame.event.Event,
         - screen_size[0] >= 200
         - screen_size[1] >= 200
     """
-    cell_length = SCREEN_SIZE[0]/GRID_SIZE
-    cell_height = SCREEN_SIZE[1]/GRID_SIZE
-    row = math.ceil(event.pos[0]/cell_length)
-    column = math.ceil(event.pos[1]/cell_height)
+    cell_length = screen_size[0] / GRID_SIZE
+    cell_height = screen_size[1] / GRID_SIZE
+    row = int(event.pos[0] / cell_length) + 1
+    column = int(event.pos[1] / cell_height) + 1
     index_number = (column - 1) * 8 + row - 1
 
     if index_number >= len(lst):
@@ -297,16 +314,18 @@ def handle_mouse_click(lst: LinkedList, event: pygame.event.Event,
     if event.button == 3:
         lst.__contains__(lst[index_number])
 
+    return None
 
-# if __name__ == '__main__':
-#     import python_ta
-#     python_ta.check_all(config={
-#         'max-line-length': 100,
-#         'disable': ['E1136'],
-#         'exclude-protected': ['_first'],
-#         'extra-imports': ['random', 'pygame', 'pygame.colordict', 'a1_linked_list'],
-#         'generated-members': ['pygame.*']
-#     })
-#
-#     import python_ta.contracts
-#     python_ta.contracts.check_all_contracts()
+
+if __name__ == '__main__':
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 100,
+        'disable': ['E1136'],
+        'exclude-protected': ['_first'],
+        'extra-imports': ['random', 'pygame', 'pygame.colordict', 'a1_linked_list'],
+        'generated-members': ['pygame.*']
+    })
+
+    import python_ta.contracts
+    python_ta.contracts.check_all_contracts()

@@ -66,7 +66,6 @@ class MoveToFrontLinkedList(LinkedList):
             return True
 
 
-
 ################################################################################
 # Heuristic 2 (swap)
 ################################################################################
@@ -207,17 +206,18 @@ class CountLinkedList(LinkedList):
             found_item.next = curr
             return True
 
-# if __name__ == '__main__':
-#     import python_ta
-#     python_ta.check_all(config={
-#         'max-line-length': 100,
-#         'disable': ['E1136'],
-#         'extra-imports': ['a1_linked_list'],
-#         'max-nested-blocks': 4
-#     })
-#
-#     import python_ta.contracts
-#     python_ta.contracts.check_all_contracts()
-#
-#     import doctest
-#     doctest.testmod()
+
+if __name__ == '__main__':
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 100,
+        'disable': ['E1136'],
+        'extra-imports': ['a1_linked_list'],
+        'max-nested-blocks': 4
+    })
+
+    import python_ta.contracts
+    python_ta.contracts.check_all_contracts()
+
+    import doctest
+    doctest.testmod()
