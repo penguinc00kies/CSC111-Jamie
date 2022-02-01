@@ -174,7 +174,7 @@ class Tree:
         Preconditions:
             - not self.is_empty()
         """
-        if self._subtrees == []
+        if self._subtrees == []:
             self._root = None
         else:
             promoted = self._subtrees.pop(-1)
@@ -182,7 +182,8 @@ class Tree:
             self._subtrees.extend(promoted._subtrees)
 
     def _leftmost_leaf(self) -> Optional[Tree]:
-        """Return the leftmost leaf of the tree"""
+        """Return the leftmost leaf of the tree
+        """
         if self.is_empty():
             return None
         elif self._subtrees == []:

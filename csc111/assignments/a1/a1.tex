@@ -1,10 +1,12 @@
 \documentclass[fontsize=11pt]{article}
 \usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
 \usepackage[utf8]{inputenc}
 \usepackage[margin=0.75in]{geometry}
 
 \title{CSC111 Assignment 1: Linked Lists}
-\author{TODO: FILL IN THE NAME OF EACH OF YOUR GROUP MEMBERS HERE}
+\author{Jamie Yi}
 \date{\today}
 
 \begin{document}
@@ -26,14 +28,109 @@ Do \textbf{not} include your solution in this file.
 \begin{enumerate}
 
     \item[(a)]
-    TODO: Write your answer here.
+    -Let $n \in \mathbb{Z}^+$ \\
+    -Let \texttt{linky} be a \texttt{LinkedList} with length $n$ containing the numbers $0, 1, 2,..., n-1$ in that order \\
+    -Let $m \in \mathbb{Z}^+$, let m represent the number of times \texttt{linky.\_\_contains\_\_(n-1)} is called \\
+
+    The cost of the assignment statement at the start is constant time, so we'll count that as 1 step.\\
+
+    Each inner loop iteration also comprises of solely constant time statements, whether or not the if-statement triggers. Therefore, I will also count each loop iteration as one step.\\
+    The loop will iterate exactly $n$ times per call. This is because the early return in the if-statement triggers on the last item of the list. Even if the early return didn't trigger, it would still be the last loop iteration since the next item in the list was \texttt{None}. Therefore, the while loop iterates $n$ times per call which is the length of the \texttt{linky}. With each iteration taking 1 step in constant time.\\
+
+    The last return statement is constant time, however since we are always searching for an item in the list it will never be called.\\
+
+    The method will run $1 + 1\cdot(n)$ times per call. If it's called $m$ times then the total running time will be $(m)(1+n)$ steps. Therefore we have a running time of $\Theta(m \cdot n)$ \\
 
     \item[(b)]
-    TODO: Write your answer here.
+    \textbf{Heuristic 1}\\
+    -Let $n \in \mathbb{Z}^+$ \\
+    -Let \texttt{linky} be a \texttt{MoveToFrontLinkedList} with length $n$ containing the numbers $0, 1, 2,..., n-1$ in that order \\
+    -Let $m \in \mathbb{Z}^+$, let m represent the number of times \texttt{linky.\_\_contains\_\_(n-1)} is called \\
+
+    The cost of the assignment statements at the start is constant time, so we'll count that as 1 step.\\
+
+    Each inner loop iteration also comprises of solely constant time assignment statements, so I will also count each loop iteration as one step.\\
+    Since we're initially searching for the item at the end of the list (that exists in the list), we will only look at the second condition of the while loop. On the first call the loop will iterate $n-1$ times since after the second last iteration, \texttt{curr.item == n-1} which is what we want.\\
+    However, after the first method call the the list is mutated such that $n-1$ is moved to the front. Then for all subsequent loops, after the first two assignment statements, \texttt{curr.item == item} so the while loop will never iterate during those calls. It only iterates on the first call. \\
+
+    The last if-else block is entirely comprised of constant time statements, so I will count the whole block as one step.\\
+
+    On the first call, the loop will run $(1+(n-1)+1)$ steps. Then for all subsequent call the loop will only run constant time statements(as described above since the loop no longer runs), we will simplify this to one step per subsequent call. The total running time will be $(1+(n-1)+1) + 1 \cdot (m-1)$ steps. Therefore we have a running time of $\Theta(m + n)$\\
+
+    \textbf{Heuristic 2}\\
+    -Let $n \in \mathbb{Z}^+$ \\
+    -Let \texttt{linky} be a \texttt{SwapLinkedList} with length $n$ containing the numbers $0, 1, 2,..., n-1$ in that order \\
+    -Let $m \in \mathbb{Z}^+$, let m represent the number of times \texttt{linky.\_\_contains\_\_(n-1)} is called \\
+
+    The cost of the assignment statements at the start is constant time, so we'll count that as 1 step.\\
+
+    Each inner loop iteration also comprises of solely constant time assignment statements, so I will also count each loop iteration as one step.\\
+    \textbf{If $m < n$}
+    Since $n-1$ swaps places with the item in front of it every time it is searched for, in order for it to reach the front of the list it must be searched for $n-1$ times. So as long as $m < n$, the while loop will run each iteration since \texttt{curr.item != item} to begin with. The first call, the loop will iterate $n-1$ times since after the second last iteration, \texttt{curr.item == n-1} which is what we want. Then the next call, the loop will iterate one less times since $n-1$ has moved up a spot and this pattern will continue until $n-1$ is the first item. We can represent this as the loop taking a total $\sum_{i=1}^{m} (n-i)$ iterations over the course of $m$ function calls. We know all the terms of the summation will be non-negative since $m < n$.\\
+    \textbf{If $m \geq n$}
+    After the $n-1$th method call we know $n-1$ will be at the front of the list and therefore the while loop will no longer run. So in this case, the loop will iterate exactly $\sum_{i=1}^{n-1} (n-i)$ times before subsequent method calls no longer run the while loop and only constant time statements are executed.\\
+
+    The last if-else block is entirely comprised of constant time statements, so I will count the whole block(and the nested if statements) as one step.\\
+    The total running time is as follows:\\
+    \textbf{If $m < n$}\\
+    $m(1) + \sum_{i=1}^{m} (n-i) + m(1) = m + \sum_{i=1}^{m} (n) - \sum_{i=1}^{m} (i) + m = m + mn - \frac{m(m+1)}{2} + m = m(2+n) - \frac{m(m+1)}{2}$ steps.\\
+    The running time in this case is $\Theta(m^2 + n)$\\
+
+    \textbf{If $m \geq n$}\\
+    $(n-1)(1) + \sum_{i=1}^{n-1} (n-i) + (n-1)(1) + (m-(n-1))(1) = (n-1) + \sum_{i=1}^{n-1} (n) -\sum_{i=1}^{n-1} (i) + (n-1) + (m-(n-1)) = 2(n-1) + n(n-1) - \frac{(n-1)n}{2} + m - n + 1 = m - n + (2+n)(n-1) - \frac{(n-1)n}{2} + 1$ steps.\\
+    The running time in this case is $\Theta(m + n^2)$\\
+
+    \textbf{Heuristic 3}\\
+    -Let $n \in \mathbb{Z}^+$ \\
+    -Let \texttt{linky} be a \texttt{CountLinkedList} with length $n$ containing the numbers $0, 1, 2,..., n-1$ in that order \\
+    -Let $m \in \mathbb{Z}^+$, let m represent the number of times \texttt{linky.\_\_contains\_\_(n-1)} is called \\
+
+    The cost of the assignment statements at the start is constant time, so we'll count that as 1 step.\\
+
+    Each inner loop iteration also comprises of solely constant time assignment statements, so I will also count each loop iteration as one step.\\
+    Since we're initially searching for the item at the end of the list (that exists in the list), we will only look at the second condition of the while loop. On the first call the loop will iterate $n-1$ times since after the second last iteration, \texttt{curr.item == n-1} which is what we want.\\
+    However, after the first method call the the list is mutated such that $n-1$ is moved to the front. Since no other items are ever searched for $n-1$'s \texttt{access\_count} will always be greater than every other item's \texttt{access\_count} after the first loop. Then for all subsequent loops, after the first two assignment statements, \texttt{curr.item == item} so the while loop will never iterate during those calls. It only iterates on the first call. \\
+
+    The while loop in the if-else block will never run because for other all items in the list, \texttt{item.access\_count} $<$ \texttt{n-1.access\_count} because after the first search, \texttt{n-1.access\_count} is increased by 1 before the while loop runs and it will keep increasing for all subsequent calls. Thus since all the other statements in the if-else block are constant time, I will count the whole block(and the nested if statements) as one step.\\
+
+    On the first call, the loop will run $(1+(n-1)+1)$ steps. Then for all subsequent call the loop will only run constant time statements(as described above since the loop no longer runs), we will simplify this to one step per subsequent call. The total running time will be $(1+(n-1)+1) + 1 \cdot (m-1)$ steps. Therefore we have a running time of $\Theta(m + n)$\\
+
+
 \end{enumerate}
 
 \item[4.]
-TODO: Write your answer here.
+    -Let $n \in \mathbb{Z}^+$, assume $n > 2$ \\
+    -Let \texttt{linky1} be a \texttt{MoveToFrontLinkedList} with length $n$ containing the numbers $0, 1, 2,..., n-1$ in that order \\
+    -Let \texttt{linky2} be a \texttt{SwapLinkedList} with length $n$ containing the numbers $0, 1, 2,..., n-1$ in that order \\
+    -(Initially \texttt{linky1} and \texttt{linky2} should look identical and contain the exact same items\\
+    -Let $m \in \mathbb{Z}^+$, where there is some sequence of $m$ search operations to be performed on \texttt{linky1} and \texttt{linky2}
+
+    WTS: If $T_1$  is the running time for \texttt{linky1} and $T_2$ is the running time for \texttt{linky2}, then $T_2 - T_1 \notin \mathcal{O}(1)$ \\
+    *In this analysis I will only be counting the number of distinct nodes traversed by \texttt{\_\_contains\_\_} per operation\\
+
+    When fixing $n$, it's important that it's greater than two because with MoveToFrontLinkedLists and SwapLinkedList of length 1 and 2, performing search operations will mutate them in identical ways. If the lists each have one element, searching for that one element over and over again will do nothing. If the lists each have 2 elements, either i) searching for the first items will not mutate the lists or ii) searching for the second item will mutate both lists in the same way, in that the two items just swap places.\\
+
+    Answer\\
+    Let $m$ be this sequence of search operations:\\
+    -\texttt{lst.\_\_contains\_\_(n-1)} \\
+    -\texttt{lst.\_\_contains\_\_(n-2)} \\
+    ...\\
+    -\texttt{lst.\_\_contains\_\_(2)} \\
+    -\texttt{lst.\_\_contains\_\_(0)} \\
+    in that order, applied to both \texttt{linky1} and \texttt{linky2}\\
+
+    For example, if $n=3$, then the sequence will be just:\\
+    -\texttt{lst.\_\_contains\_\_(2)} \\
+    -\texttt{lst.\_\_contains\_\_(0)} \\
+
+    For \texttt{linky1}(the MoveToFrontLinkedList), what this sequence does is move all the items starting from the last item to the third item inclusive to the front. Then it will search for $0$ which was originally the first item. $0$ will always be be the second last item in the list, since $1$ never searched for and it comes after $0$. Each search operation will be looking for the item that is at the end of the list at that time, so all the statements except the last(quantified as the first $m-1$ statements) will traverse $n$ distinct nodes, or the length of the list. Since the last statement will be looking for the second last item, it will traverse $n-1$ distinct nodes. Therefore this sequence will have a $T_1$ of $(m-1)(n) + (n-1)$ steps.\\
+
+    For \texttt{linky2}(the SwapLinkedList), what this sequence does is to swap around all the items except the first item in the list. In order to move $0$ in this list, -\texttt{linky2.\_\_contains\_\_(1)} must be called so $0$ and $1$ switch places, but that statement will always be absent from sequence $m$ so throughout the whole sequence, $0$ will remain as the first item. Given how swapping is less striaghtforward to calculate multiple operations of compared to moving to the front, I will make things easier for myself and consider the maximum number of distinct nodes that a given search operation will traverse. Let's say that for all the first $m-1$ operations, a maximum of $n$ distinct nodes are traversed per operation. Since we know that $0$ remains unmoved, we know in any given sequence $m$, \texttt{linky2.\_\_contains\_\_(0)} will only traverse one distinct node - the first one. Therefore we see that this sequence will have a maximum $T_2$ of $(m-1)(n) + 1$ steps.\\
+
+    Now let's subtract $T_2$ from $T_1$ knowing that we're using the maximum possible value of $T_2$, we can safely say that this is the smallest possible difference.\\
+    $T_2 - T_1 = ((m-1)(n) + (n-1)) - ((m-1)(n) + 1) = (m-1)(n) - (m-1)(n) + (n-1) - 1 = n - 2$ steps.
+    $n - 2 \notin \mathcal{O}(1)$ as we wanted.\\
+    Linear running time cannot upper bound by a constant and since this is the minimum possible difference, we have shown that there is a sequence $m$ where for any $n$, $T_2 - T_1 \notin \mathcal{O}(1)$.
 
 \end{enumerate}
 
