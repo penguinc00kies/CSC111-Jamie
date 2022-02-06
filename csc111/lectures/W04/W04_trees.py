@@ -177,9 +177,10 @@ class Tree:
         if self._subtrees == []:
             self._root = None
         else:
-            promoted = self._subtrees.pop(-1)
-            self._root = promoted._root
-            self._subtrees.extend(promoted._subtrees)
+            # promoted = self._subtrees.pop(-1)
+            # self._root = promoted._root
+            # self._subtrees.extend(promoted._subtrees)
+            self._root = self._extract_leaf()
 
     def _leftmost_leaf(self) -> Optional[Tree]:
         """Return the leftmost leaf of the tree
@@ -191,6 +192,26 @@ class Tree:
         else:
             return self._subtrees[0]._leftmost_leaf()
 
+    def _extract_leaf(self) -> Any:
+        """Remove and return the leftmost leaf in the tree
+
+        Preconditions:
+            - self.is_empty() is False
+
+        >>> base_example = Tree(111, [])
+        >>> base_example._extract_leaf()
+        111
+        >>> base_example.is_empty()
+        True
+        """
+        if self._subtrees == []:
+            root = self._root
+            self._root = None
+            return root
+        else:
+            # return self._subtrees[0]._extract_leaf()
+            left_subtree = self._subtrees[0]
+            return left_subtree._extract_leaf()
 
 
 if __name__ == '__main__':

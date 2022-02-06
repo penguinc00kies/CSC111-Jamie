@@ -32,7 +32,7 @@ Do \textbf{not} include your solution in this file.
     -Let \texttt{linky} be a \texttt{LinkedList} with length $n$ containing the numbers $0, 1, 2,..., n-1$ in that order \\
     -Let $m \in \mathbb{Z}^+$, let m represent the number of times \texttt{linky.\_\_contains\_\_(n-1)} is called \\
 
-    The cost of the assignment statement at the start is constant time, so we'll count that as 1 step.\\
+    The cost of the assignment statements at the start is constant time, so we'll count that as 1 step.\\
 
     Each inner loop iteration also comprises of solely constant time statements, whether or not the if-statement triggers. Therefore, I will also count each loop iteration as one step.\\
     The loop will iterate exactly $n$ times per call. This is because the early return in the if-statement triggers on the last item of the list. Even if the early return didn't trigger, it would still be the last loop iteration since the next item in the list was \texttt{None}. Therefore, the while loop iterates $n$ times per call which is the length of the \texttt{linky}. With each iteration taking 1 step in constant time.\\
