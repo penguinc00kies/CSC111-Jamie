@@ -236,7 +236,7 @@ class BinarySearchTree:
         """
         if self._root is None:
             return []
-        elif self._root is not None:
+        else:
             if self._right._root is None and self._left._root is None:
                 return [self._root]
             elif self._right._root is None:
@@ -273,7 +273,7 @@ class BinarySearchTree:
             return []
         elif self._root >= item:
             return self._left.smaller(item)
-        elif self._root is not None:
+        else:
             if self._right._root is None and self._left._root is None:
                 return [self._root]
             elif self._right._root is None:
@@ -284,15 +284,15 @@ class BinarySearchTree:
                 return self._left.smaller(item) + [self._root] + self._right.smaller(item)
 
 
-# if __name__ == '__main__':
-#     import python_ta.contracts
-#     python_ta.contracts.check_all_contracts()
-#
-#     import doctest
-#     doctest.testmod()
-#
-#     import python_ta
-#     python_ta.check_all(config={
-#         'max-line-length': 100,
-#         'disable': ['E1136']
-#     })
+if __name__ == '__main__':
+    import python_ta.contracts
+    python_ta.contracts.check_all_contracts()
+
+    import doctest
+    doctest.testmod()
+
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 100,
+        'disable': ['E1136']
+    })
