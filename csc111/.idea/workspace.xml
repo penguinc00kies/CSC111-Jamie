@@ -5,17 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7a1f784-4476-4766-8139-9d56a4f6a055" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/tutorials/W04/tutorial4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/csc111.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csc111.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lectures/W05/W05_bst.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignments/a1/a1.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/assignments/a1/a1.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignments/a1/a1.tex" beforeDir="false" afterPath="$PROJECT_DIR$/assignments/a1/a1.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lectures/W04/W04_trees.py" beforeDir="false" afterPath="$PROJECT_DIR$/lectures/W04/W04_trees.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -42,6 +45,9 @@
       <module name="csc111" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/practice/W05" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -148,5 +154,16 @@
       <updated>1641843964479</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
