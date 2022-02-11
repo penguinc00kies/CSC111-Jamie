@@ -130,6 +130,14 @@ class BinarySearchTree:
         >>> bst._right._root
         20
         """
+        if self.is_empty():
+            self._root = item
+            self._left = BinarySearchTree(None)
+            self._right = BinarySearchTree(None)
+        elif item >= self._root:
+            self._right.insert(item)
+        else:
+            self._left.insert(item)
 
     ################################################################################################
     # Exercise 2
@@ -157,3 +165,38 @@ class BinarySearchTree:
         Preconditions:
             - not self.is_empty()
         """
+        if self._right.is_empty() and self._left.is_empty():
+            self._root = None
+            self._right = None
+            self._left = None
+        elif self._left.is_empty():
+            self._root = self._right._root
+            self._right = self._right._right
+            self._left = self._right._left
+        elif self._right.is_empty():
+            self._root = self._left._root
+            self._left = self._left._left
+            self._right = self._left._right
+        else:
+            # temp_subtree = self._left
+            # while not temp_subtree._right.is_empty():
+            #     temp_subtree = temp_subtree._right
+            #
+            # self._root = temp_subtree._root
+            self._root = self._left._extract_max()
+
+
+            # if temp_subtree._right.is_empty() and temp_subtree._left.is_empty():
+            #     temp_subtree._root = None
+            #     temp_subtree._right = None
+            #     temp_subtree._left = None
+
+
+    def _extract_max(self) -> Any:
+        """"""
+        if self._right.is_empty():
+            root = self._root
+            self._root = None
+            return root
+        else:
+            return self._right._extract_max()
