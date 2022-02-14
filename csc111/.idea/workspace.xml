@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7a1f784-4476-4766-8139-9d56a4f6a055" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/tutorials/W05/tutorial5.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,61 +39,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.gutterIcons" />
   </component>
-  <component name="RunManager" selected="Python tests.Doctest BinarySearchTree.rotate_right">
-    <configuration name="tutorial5" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="csc111" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tutorials/W05" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tutorials/W05/tutorial5.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Doctest BinarySearchTree.height" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
-      <module name="csc111" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tutorials/W05" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tutorials/W05/tutorial5.py" />
-      <option name="CLASS_NAME" value="BinarySearchTree" />
-      <option name="METHOD_NAME" value="height" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Doctest BinarySearchTree.items" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
-      <module name="csc111" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/practice/W05" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practice/W05/prep5.py" />
-      <option name="CLASS_NAME" value="BinarySearchTree" />
-      <option name="METHOD_NAME" value="items" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python tests.Doctest Compare.evaluate">
     <configuration name="Doctest BinarySearchTree.items_in_range" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
       <module name="csc111" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -131,13 +76,67 @@
       <option name="USE_PATTERN" value="false" />
       <method v="2" />
     </configuration>
+    <configuration name="Doctest BoolOp.evaluate" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+      <module name="csc111" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/practice/W06" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practice/W06/prep6.py" />
+      <option name="CLASS_NAME" value="BoolOp" />
+      <option name="METHOD_NAME" value="evaluate" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Doctest Bool.evaluate" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+      <module name="csc111" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/practice/W06" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practice/W06/prep6.py" />
+      <option name="CLASS_NAME" value="Bool" />
+      <option name="METHOD_NAME" value="evaluate" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Doctest Compare.evaluate" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+      <module name="csc111" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/practice/W06" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practice/W06/prep6.py" />
+      <option name="CLASS_NAME" value="Compare" />
+      <option name="METHOD_NAME" value="evaluate" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Doctest Compare.evaluate" />
+        <item itemvalue="Python tests.Doctest BoolOp.evaluate" />
+        <item itemvalue="Python tests.Doctest Bool.evaluate" />
         <item itemvalue="Python tests.Doctest BinarySearchTree.rotate_right" />
         <item itemvalue="Python tests.Doctest BinarySearchTree.items_in_range" />
-        <item itemvalue="Python tests.Doctest BinarySearchTree.items" />
-        <item itemvalue="Python.tutorial5" />
-        <item itemvalue="Python tests.Doctest BinarySearchTree.height" />
       </list>
     </recent_temporary>
   </component>
