@@ -171,7 +171,6 @@ class Bool(Expr):
         >>> expr.evaluate()
         True
         """
-        # TODO: implement this method
         return self.b
 
     def __str__(self) -> str:
@@ -224,7 +223,7 @@ class BoolOp(Expr):
         False
         """
         if self.op == 'and':
-            return all (boolean.evaluate() for boolean in self.operands)
+            return all(boolean.evaluate() for boolean in self.operands)
         else:
             return any(boolean.evaluate() for boolean in self.operands)
 
@@ -296,7 +295,7 @@ class Compare(Expr):
         else:
             if self.left.evaluate() >= self.comparisons[0][1].evaluate():
                 return False
-        for i in range (0, len(self.comparisons) - 1):
+        for i in range(0, len(self.comparisons) - 1):
             if self.comparisons[i + 1][0] == '<=':
                 if self.comparisons[i][1].evaluate() > self.comparisons[i + 1][1].evaluate():
                     return False
