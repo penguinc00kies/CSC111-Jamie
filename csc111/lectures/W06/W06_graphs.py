@@ -24,6 +24,8 @@ class _Vertex:
     # Exercise 3, Question 3
     ################################################################################################
     Representation Invariants:
+        - self not in self.neighbours
+        - all(self in n.neighbours for n in self.neighbours)
     """
     item: Any
     neighbours: set[_Vertex]
@@ -87,3 +89,10 @@ def complete_graph(n: int) -> Graph:
     Preconditions:
         - n >= 0
     """
+    graph = Graph()
+    for i in range(0, n):
+        graph.add_vertex(i)
+        for j in range(0, i):
+            graph.add_edge(i, j)
+
+    return graph

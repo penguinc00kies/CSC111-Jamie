@@ -171,3 +171,4 @@ class Assign(Statement):
         >>> env['x']
         13
         """
+        env[self.target] = self.value.evaluate(env)
