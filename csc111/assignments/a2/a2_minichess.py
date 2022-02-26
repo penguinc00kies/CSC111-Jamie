@@ -22,7 +22,7 @@ This file is provided solely for the personal and private use of students
 taking CSC111 at the University of Toronto St. George campus. All forms of
 distribution of this code, whether as given or with any changes, are
 expressly prohibited. For more information on copyright for CSC111 materials,
-please consult our Course Syllabus.
+please consult our Course Syllabus.m
 
 This file is Copyright (c) 2022 Mario Badr, David Liu, and Isaac Waller.
 """
@@ -477,7 +477,7 @@ if __name__ == '__main__':
     doctest.testmod()
 
     # Demo running Minichess games being played between two random players
-    # run_games(100, RandomPlayer(), RandomPlayer(), show_stats=True)
+    run_games(100, RandomPlayer(), RandomPlayer(), show_stats=True)
 
     # Try running this to visualize games (takes longer)
     # run_games(20, RandomPlayer(), RandomPlayer(), visualize=True, fps=10, show_stats=True)
