@@ -139,7 +139,7 @@ class GameTree:
         i = 0
 
         if moves[i] in self._subtrees:
-            self.insert_move_sequence(moves)
+            self._subtrees.insert_move_sequence(moves)
         else:
             self._subtrees.append(GameTree(moves[i], is_white_move=(not self.is_white_move)))
             self.insert_move_sequence(moves)

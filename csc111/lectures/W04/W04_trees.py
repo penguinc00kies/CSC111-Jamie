@@ -1,4 +1,4 @@
-"""CSC111 W04 - Starter File
+ """CSC111 W04 - Starter File
 
 Copyright and Usage Information
 ===============================
