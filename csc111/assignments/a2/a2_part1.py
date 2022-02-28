@@ -39,6 +39,31 @@ def load_game_tree(games_file: str) -> a2_game_tree.GameTree:
     Implementation hints:
         - You can review Tutorial 4 for how we read CSV files in Python.
     """
+    with open(games_file) as file:
+        reader = csv.reader(file)
+        list_of_move_sequences = [process_row(row) for row in reader]
+
+    gt = a2_game_tree.GameTree('*')
+    for sequence in list_of_move_sequences:
+        gt.insert_move_sequence(sequence)
+
+    return gt
+
+
+def process_row(row: list[str]) -> list[str]:
+    """Convert a row of subway delay data to Delay object.
+
+    Notes:
+    - This function is very similar to the process_row function from tutorial3_part4.py,
+      except now you're returning a Delay object instead of list.
+
+    Preconditions:
+        - row has the correct format for the TTC subway delay data set
+    """
+    moves = []
+    for item in row:
+        moves.append(item)
+    return moves
 
 
 ################################################################################
@@ -80,6 +105,26 @@ class RandomTreePlayer(a2_minichess.Player):
         Preconditions:
             - There is at least one valid move for the given game
         """
+        if previous_move is not None:
+            move_found = False
+            if self._game_tree is not None:
+                for gt in self._game_tree.get_subtrees():
+                    if gt.move == previous_move:
+                        self._game_tree = gt
+                        move_found = True
+
+            if not move_found:
+                self._game_tree = None
+
+        if self._game_tree is not None and self._game_tree.get_subtrees() != []:
+            move = random.choice(self._game_tree.get_subtrees()).move
+            for gt in self._game_tree.get_subtrees():
+                if gt.move == move:
+                    self._game_tree = gt
+            return move
+        else:
+            possible_moves = game.get_valid_moves()
+            return random.choice(possible_moves)
 
 
 def part1_runner(games_file: str, n: int, black_random: bool) -> None:
@@ -97,16 +142,24 @@ def part1_runner(games_file: str, n: int, black_random: bool) -> None:
         - Your implementation MUST correctly call a2_minichess.run_games. You may choose
           the values for the optional arguments passed to the function.
     """
+    gt = load_game_tree(games_file)
+    white = RandomTreePlayer(gt)
+    if black_random:
+        black = RandomTreePlayer(None)
+    else:
+        black = RandomTreePlayer(gt)
+
+    a2_minichess.run_games(n, white, black)
 
 
-if __name__ == '__main__':
-    import python_ta
-    python_ta.check_all(config={
-        'max-line-length': 100,
-        'disable': ['E1136'],
-        'extra-imports': ['a2_minichess', 'a2_game_tree', 'random', 'csv'],
-        'allowed-io': ['load_game_tree']
-    })
+# if __name__ == '__main__':
+#     import python_ta
+#     python_ta.check_all(config={
+#         'max-line-length': 100,
+#         'disable': ['E1136'],
+#         'extra-imports': ['a2_minichess', 'a2_game_tree', 'random', 'csv'],
+#         'allowed-io': ['load_game_tree']
+#     })
 
     # Sample call to part1_runner (you can change this, just keep it in the main block!)
     # part1_runner('data/white_wins.csv', 50, True)

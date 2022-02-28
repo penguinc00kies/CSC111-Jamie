@@ -136,16 +136,21 @@ class GameTree:
                  `list.pop` on the list of moves. Just make sure the original list isn't changed
                  when the function ends!
         """
-        i = 0
+        return self.insert_move_sequence_helper(moves, 0)
 
-        if moves[i] in self._subtrees:
-            self._subtrees.insert_move_sequence(moves)
+    def insert_move_sequence_helper(self, moves: list[str], i: int) -> None:
+        """return a number"""
+        list_of_moves = [gt.move for gt in self._subtrees]
+        if len(moves) <= i:
+            return None
+        elif moves[i] in list_of_moves:
+            for gt in self._subtrees:
+                if gt.move == moves[i]:
+                    gt.insert_move_sequence_helper(moves, i+1)
         else:
-            self._subtrees.append(GameTree(moves[i], is_white_move=(not self.is_white_move)))
-            self.insert_move_sequence(moves)
-
-        def count_helper(self) -> int:
-            """return a number"""
+            gt = GameTree(moves[i], is_white_move=(not self.is_white_move))
+            self._subtrees.append(gt)
+            gt.insert_move_sequence_helper(moves, i+1)
 
     ############################################################################
     # Part 2: Complete Game Trees and Win Probabilities
