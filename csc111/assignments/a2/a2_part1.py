@@ -105,16 +105,15 @@ class RandomTreePlayer(a2_minichess.Player):
         Preconditions:
             - There is at least one valid move for the given game
         """
-        if previous_move is not None:
-            move_found = False
-            if self._game_tree is not None:
-                for gt in self._game_tree.get_subtrees():
-                    if gt.move == previous_move:
-                        self._game_tree = gt
-                        move_found = True
+        move_found = False
+        if self._game_tree is not None:
+            for gt in self._game_tree.get_subtrees():
+                if gt.move == previous_move:
+                    self._game_tree = gt
+                    move_found = True
 
-            if not move_found:
-                self._game_tree = None
+        if not move_found and previous_move is not None:
+            self._game_tree = None
 
         if self._game_tree is not None and self._game_tree.get_subtrees() != []:
             move = random.choice(self._game_tree.get_subtrees()).move
@@ -152,14 +151,14 @@ def part1_runner(games_file: str, n: int, black_random: bool) -> None:
     a2_minichess.run_games(n, white, black)
 
 
-# if __name__ == '__main__':
-#     import python_ta
-#     python_ta.check_all(config={
-#         'max-line-length': 100,
-#         'disable': ['E1136'],
-#         'extra-imports': ['a2_minichess', 'a2_game_tree', 'random', 'csv'],
-#         'allowed-io': ['load_game_tree']
-#     })
+if __name__ == '__main__':
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 100,
+        'disable': ['E1136'],
+        'extra-imports': ['a2_minichess', 'a2_game_tree', 'random', 'csv'],
+        'allowed-io': ['load_game_tree']
+    })
 
     # Sample call to part1_runner (you can change this, just keep it in the main block!)
     # part1_runner('data/white_wins.csv', 50, True)

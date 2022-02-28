@@ -140,17 +140,19 @@ class GameTree:
 
     def insert_move_sequence_helper(self, moves: list[str], i: int) -> None:
         """return a number"""
-        list_of_moves = [gt.move for gt in self._subtrees]
+        list_of_moves = [tree.move for tree in self._subtrees]
         if len(moves) <= i:
             return None
         elif moves[i] in list_of_moves:
             for gt in self._subtrees:
                 if gt.move == moves[i]:
-                    gt.insert_move_sequence_helper(moves, i+1)
+                    gt.insert_move_sequence_helper(moves, i + 1)
         else:
             gt = GameTree(moves[i], is_white_move=(not self.is_white_move))
             self._subtrees.append(gt)
-            gt.insert_move_sequence_helper(moves, i+1)
+            gt.insert_move_sequence_helper(moves, i + 1)
+
+        return None
 
     ############################################################################
     # Part 2: Complete Game Trees and Win Probabilities
