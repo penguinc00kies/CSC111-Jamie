@@ -151,14 +151,14 @@ def part1_runner(games_file: str, n: int, black_random: bool) -> None:
     a2_minichess.run_games(n, white, black)
 
 
-if __name__ == '__main__':
-    import python_ta
-    python_ta.check_all(config={
-        'max-line-length': 100,
-        'disable': ['E1136'],
-        'extra-imports': ['a2_minichess', 'a2_game_tree', 'random', 'csv'],
-        'allowed-io': ['load_game_tree']
-    })
+# if __name__ == '__main__':
+#     import python_ta
+#     python_ta.check_all(config={
+#         'max-line-length': 100,
+#         'disable': ['E1136'],
+#         'extra-imports': ['a2_minichess', 'a2_game_tree', 'random', 'csv'],
+#         'allowed-io': ['load_game_tree']
+#     })
 
     # Sample call to part1_runner (you can change this, just keep it in the main block!)
     # part1_runner('data/white_wins.csv', 50, True)

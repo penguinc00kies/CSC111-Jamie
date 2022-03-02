@@ -56,6 +56,37 @@ def generate_complete_game_tree(root_move: str, game_state: a2_minichess.Miniche
     WARNING: we recommend not calling this function with depth greater than 6, as this will
     likely take a very long time on your computer.
     """
+    if root_move == '*':
+        if d == 0:
+            return a2_game_tree.GameTree('*')
+        else:
+            root = a2_game_tree.GameTree('*')
+            for valid_move in a2_minichess.MinichessGame().get_valid_moves():
+                new_game_tree = generate_complete_game_tree(valid_move, game_state, d - 1)
+                root.add_subtree(new_game_tree)
+            return root
+    elif d == 0:
+        leaf = a2_game_tree.GameTree(root_move, is_white_move=not game_state.is_white_move())
+        new_game_state = game_state.copy_and_make_move(root_move)
+        if new_game_state.get_winner() == 'White':
+            leaf.white_win_probability = 1.0
+        else:
+            leaf.white_win_probability = 0.0
+        return leaf
+    else:
+        root = a2_game_tree.GameTree(root_move, is_white_move= not game_state.is_white_move())
+        new_game_state = game_state.copy_and_make_move(root_move)
+        if new_game_state.get_winner() == 'White':
+            root.white_win_probability = 1.0
+            return root
+        elif new_game_state.get_winner() == 'Black' or new_game_state.get_winner() == 'Draw':
+            root.white_win_probability = 0.0
+            return root
+
+        for valid_move in new_game_state.get_valid_moves():
+            new_game_tree = generate_complete_game_tree(valid_move, new_game_state, d-1)
+            root.add_subtree(new_game_tree)
+        return root
 
 
 class GreedyTreePlayer(a2_minichess.Player):
@@ -86,6 +117,31 @@ class GreedyTreePlayer(a2_minichess.Player):
         Preconditions:
             - There is at least one valid move for the given game
         """
+        if previous_move is not None:
+            for gt in self._game_tree.get_subtrees():
+                if gt.move == previous_move:
+                    self._game_tree = gt
+
+        if self._game_tree is not None and self._game_tree.get_subtrees() != []:
+            subtrees = self._game_tree.get_subtrees()
+            if game.is_white_move() == True:
+                best_move = subtrees[0]
+                for move in subtrees:
+                    if move.white_win_probability > best_move.white_win_probability:
+                        best_move = move
+                self._game_tree = best_move
+                return best_move.move
+            elif game.is_white_move() == False:
+                worst_move = subtrees[0]
+                for move in subtrees:
+                    if move.white_win_probability < worst_move.white_win_probability:
+                        worst_move = move
+                self._game_tree = worst_move
+                return worst_move.move
+        else:
+            move = random.choice(game.get_valid_moves())
+            return move
+
 
 
 def part2_runner(d: int, n: int, white_greedy: bool) -> None:
@@ -104,16 +160,26 @@ def part2_runner(d: int, n: int, white_greedy: bool) -> None:
         - Your implementation MUST correctly call a2_minichess.run_games. You may choose
           the values for the optional arguments passed to the function.
     """
+    game = a2_minichess.MinichessGame()
+    gt = generate_complete_game_tree('*', game, d)
+    if white_greedy:
+        white = GreedyTreePlayer(gt)
+        black = a2_minichess.RandomPlayer()
+    else:
+        white = a2_minichess.RandomPlayer()
+        black = GreedyTreePlayer(gt)
+
+    a2_minichess.run_games(n, white, black)
 
 
-if __name__ == '__main__':
-    import python_ta
-    python_ta.check_all(config={
-        'max-line-length': 100,
-        'max-nested-blocks': 4,
-        'disable': ['E1136'],
-        'extra-imports': ['random', 'a2_minichess', 'a2_game_tree']
-    })
+# if __name__ == '__main__':
+#     import python_ta
+#     python_ta.check_all(config={
+#         'max-line-length': 100,
+#         'max-nested-blocks': 4,
+#         'disable': ['E1136'],
+#         'extra-imports': ['random', 'a2_minichess', 'a2_game_tree']
+#     })
 
     # Sample call to part2_runner (you can change this, just keep it in the main block!)
     # part2_runner(5, 50, False)
