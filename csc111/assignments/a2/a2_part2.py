@@ -74,7 +74,7 @@ def generate_complete_game_tree(root_move: str, game_state: a2_minichess.Miniche
             leaf.white_win_probability = 0.0
         return leaf
     else:
-        root = a2_game_tree.GameTree(root_move, is_white_move= not game_state.is_white_move())
+        root = a2_game_tree.GameTree(root_move, is_white_move=not game_state.is_white_move())
         new_game_state = game_state.copy_and_make_move(root_move)
         if new_game_state.get_winner() == 'White':
             root.white_win_probability = 1.0
@@ -84,7 +84,7 @@ def generate_complete_game_tree(root_move: str, game_state: a2_minichess.Miniche
             return root
 
         for valid_move in new_game_state.get_valid_moves():
-            new_game_tree = generate_complete_game_tree(valid_move, new_game_state, d-1)
+            new_game_tree = generate_complete_game_tree(valid_move, new_game_state, d - 1)
             root.add_subtree(new_game_tree)
         return root
 
@@ -124,14 +124,14 @@ class GreedyTreePlayer(a2_minichess.Player):
 
         if self._game_tree is not None and self._game_tree.get_subtrees() != []:
             subtrees = self._game_tree.get_subtrees()
-            if game.is_white_move() == True:
+            if game.is_white_move():
                 best_move = subtrees[0]
                 for move in subtrees:
                     if move.white_win_probability > best_move.white_win_probability:
                         best_move = move
                 self._game_tree = best_move
                 return best_move.move
-            elif game.is_white_move() == False:
+            elif not game.is_white_move():
                 worst_move = subtrees[0]
                 for move in subtrees:
                     if move.white_win_probability < worst_move.white_win_probability:
@@ -141,6 +141,8 @@ class GreedyTreePlayer(a2_minichess.Player):
         else:
             move = random.choice(game.get_valid_moves())
             return move
+
+        return ''
 
 
 def part2_runner(d: int, n: int, white_greedy: bool) -> None:
@@ -171,14 +173,14 @@ def part2_runner(d: int, n: int, white_greedy: bool) -> None:
     a2_minichess.run_games(n, white, black)
 
 
-# if __name__ == '__main__':
-#     import python_ta
-#     python_ta.check_all(config={
-#         'max-line-length': 100,
-#         'max-nested-blocks': 4,
-#         'disable': ['E1136'],
-#         'extra-imports': ['random', 'a2_minichess', 'a2_game_tree']
-#     })
+if __name__ == '__main__':
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 100,
+        'max-nested-blocks': 4,
+        'disable': ['E1136'],
+        'extra-imports': ['random', 'a2_minichess', 'a2_game_tree']
+    })
 
     # Sample call to part2_runner (you can change this, just keep it in the main block!)
-    # part2_runner(5, 50, False)
+    part2_runner(5, 50, True)

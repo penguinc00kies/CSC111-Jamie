@@ -81,7 +81,7 @@ class ExploringPlayer(a2_minichess.Player):
         """
         subtrees = self._game_tree.get_subtrees()
         valid_moves = game.get_valid_moves()
-        if game.is_white_move() == True:
+        if game.is_white_move():
             best_move = subtrees[0]
             for move in subtrees:
                 if move.white_win_probability > best_move.white_win_probability:
@@ -93,7 +93,7 @@ class ExploringPlayer(a2_minichess.Player):
             else:
                 move = random.choice(valid_moves)
                 return move
-        elif game.is_white_move() == False:
+        elif not game.is_white_move():
             worst_move = subtrees[0]
             for move in subtrees:
                 if move.white_win_probability < worst_move.white_win_probability:
@@ -105,6 +105,8 @@ class ExploringPlayer(a2_minichess.Player):
             else:
                 move = random.choice(valid_moves)
                 return move
+
+        return ''
 
 
 def run_learning_algorithm(exploration_probabilities: list[float],
@@ -160,7 +162,8 @@ def run_learning_algorithm(exploration_probabilities: list[float],
         print(f'Game {i} winner: {winner}')
 
     for outcome in stats:
-        print(f'{outcome}: {stats[outcome]}/{len(exploration_probabilities)} ({100.0 * stats[outcome] / len(exploration_probabilities):.2f}%)')
+        print(f'{outcome}: {stats[outcome]}/{len(exploration_probabilities)}'
+              f' ({100.0 * stats[outcome] / len(exploration_probabilities):.2f}%)')
     if show_stats:
         a2_minichess.plot_game_statistics(results_so_far)
 
@@ -186,14 +189,14 @@ def part3_runner() -> a2_game_tree.GameTree:
     return run_learning_algorithm(probabilities)
 
 
-# if __name__ == '__main__':
-#     import python_ta
-#     python_ta.check_all(config={
-#         'max-line-length': 100,
-#         'max-nested-blocks': 4,
-#         'disable': ['E1136'],
-#         'extra-imports': ['random', 'a2_minichess', 'a2_game_tree'],
-#         'allowed-io': ['run_learning_algorithm']
-#     })
+if __name__ == '__main__':
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 100,
+        'max-nested-blocks': 4,
+        'disable': ['E1136'],
+        'extra-imports': ['random', 'a2_minichess', 'a2_game_tree'],
+        'allowed-io': ['run_learning_algorithm']
+    })
 
-    # part3_runner()
+    part3_runner()

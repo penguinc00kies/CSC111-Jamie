@@ -33,8 +33,8 @@ class GameTree:
       - move: the current chess move (expressed in chess notation), or '*' if this tree
               represents the start of a game
       - is_white_move: True if White is to make the next move after this, False otherwise
-      - white_win_probability: A float between 0.0 and 1.0 representing the probability that White will win from the
-              current state of the game
+      - white_win_probability: A float between 0.0 and 1.0 representing the probability that
+              White will win from the current state of the game
 
     Representation Invariants:
         - self.move == GAME_START_MOVE or self.move is a valid Minichess move
@@ -146,7 +146,8 @@ class GameTree:
         self._update_white_win_probability()
         return None
 
-    def insert_move_sequence_helper(self, moves: list[str], i: int, white_win_probability: float = 0.0) -> None:
+    def insert_move_sequence_helper(self, moves: list[str], i: int,
+                                    white_win_probability: float = 0.0) -> None:
         """return a number"""
         list_of_moves = [tree.move for tree in self._subtrees]
         if i >= len(moves):
@@ -157,7 +158,8 @@ class GameTree:
                     gt.insert_move_sequence_helper(moves, i + 1, white_win_probability)
         else:
             if i == (len(moves) - 1) and self.is_white_move:
-                gt = GameTree(moves[i], is_white_move=(not self.is_white_move), white_win_probability=white_win_probability)
+                gt = GameTree(moves[i], is_white_move=(not self.is_white_move),
+                              white_win_probability=white_win_probability)
             else:
                 gt = GameTree(moves[i], is_white_move=(not self.is_white_move))
             self._subtrees.append(gt)
@@ -186,10 +188,13 @@ class GameTree:
         """
         if self._subtrees == []:
             return None
-        elif self.is_white_move == True:
-            self.white_win_probability = max(subtree.white_win_probability for subtree in self._subtrees)
-        elif self.is_white_move == False:
-            self.white_win_probability = sum(subtree.white_win_probability for subtree in self._subtrees) / len(self._subtrees)
+        elif self.is_white_move:
+            self.white_win_probability = max(subtree.white_win_probability
+                                             for subtree in self._subtrees)
+        elif not self.is_white_move:
+            self.white_win_probability = sum(subtree.white_win_probability
+                                             for subtree in self._subtrees) / len(self._subtrees)
+        return None
 
 
 if __name__ == '__main__':
