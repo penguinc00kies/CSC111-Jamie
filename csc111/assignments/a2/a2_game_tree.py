@@ -114,7 +114,7 @@ class GameTree:
     ############################################################################
     # Part 1: Loading and "Replaying" Minichess games
     ############################################################################
-    def insert_move_sequence(self, moves: list[str]) -> None:
+    def insert_move_sequence(self, moves: list[str], white_win_probability: float = 0.0) -> None:
         """Insert the given sequence of moves into this tree.
 
         The inserted moves form a chain of descendants, where:
@@ -142,24 +142,27 @@ class GameTree:
                  `list.pop` on the list of moves. Just make sure the original list isn't changed
                  when the function ends!
         """
-
-        return self.insert_move_sequence_helper(moves, 0, self.white_win_probability)
+        self.insert_move_sequence_helper(moves, 0, white_win_probability)
+        self._update_white_win_probability()
+        return None
 
     def insert_move_sequence_helper(self, moves: list[str], i: int, white_win_probability: float = 0.0) -> None:
         """return a number"""
         list_of_moves = [tree.move for tree in self._subtrees]
-        if len(moves) <= i:
+        if i >= len(moves):
             return None
         elif moves[i] in list_of_moves:
             for gt in self._subtrees:
                 if gt.move == moves[i]:
-                    gt.insert_move_sequence_helper(moves, i + 1)
+                    gt.insert_move_sequence_helper(moves, i + 1, white_win_probability)
         else:
-            gt = GameTree(moves[i], is_white_move=(not self.is_white_move))
+            if i == (len(moves) - 1) and self.is_white_move:
+                gt = GameTree(moves[i], is_white_move=(not self.is_white_move), white_win_probability=white_win_probability)
+            else:
+                gt = GameTree(moves[i], is_white_move=(not self.is_white_move))
             self._subtrees.append(gt)
+            gt.insert_move_sequence_helper(moves, i + 1, white_win_probability)
             self._update_white_win_probability()
-            gt.insert_move_sequence_helper(moves, i + 1)
-
 
         return None
 

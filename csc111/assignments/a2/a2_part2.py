@@ -143,7 +143,6 @@ class GreedyTreePlayer(a2_minichess.Player):
             return move
 
 
-
 def part2_runner(d: int, n: int, white_greedy: bool) -> None:
     """Create a complete game tree with the given depth, and run n games where
     one player is a GreedyTreePlayer and the other is a RandomPlayer.

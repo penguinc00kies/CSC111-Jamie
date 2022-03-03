@@ -468,7 +468,7 @@ def plot_game_statistics(results: list[str]) -> None:
     fig.update_yaxes(range=[0.0, 1.0], row=2, col=1)
 
     fig.update_layout(title='Minichess Game Results', xaxis_title='Game')
-    fig.show()
+    fig.write_image('stats.png')
     # fig.write_image('stats.png')
 
 

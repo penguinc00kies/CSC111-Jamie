@@ -50,6 +50,61 @@ class ExploringPlayer(a2_minichess.Player):
         Preconditions:
             - There is at least one valid move for the given game
         """
+        if previous_move is not None and self._game_tree is not None:
+            for gt in self._game_tree.get_subtrees():
+                if gt.move == previous_move:
+                    self._game_tree = gt
+
+        if self._game_tree is not None and self._game_tree.get_subtrees() != []:
+            random_number = random.random()
+
+            if random_number >= self._exploration_probability:
+                return self.greedy_player_move(game)
+            else:
+                new_game_tree = None
+                random_move = random.choice(game.get_valid_moves())
+                for move in self._game_tree.get_subtrees():
+                    if move.move == random_move:
+                        new_game_tree = move
+                self._game_tree = new_game_tree
+                return random_move
+
+        else:
+            move = random.choice(game.get_valid_moves())
+            return move
+
+    def greedy_player_move(self, game: a2_minichess.MinichessGame) -> str:
+        """Make a move given the current game. Using the GreedyTreePlayer algorithm
+
+        Preconditions:
+            - There is at least one valid move for the given game
+        """
+        subtrees = self._game_tree.get_subtrees()
+        valid_moves = game.get_valid_moves()
+        if game.is_white_move() == True:
+            best_move = subtrees[0]
+            for move in subtrees:
+                if move.white_win_probability > best_move.white_win_probability:
+                    if best_move.move in valid_moves:
+                        best_move = move
+            if best_move.move in valid_moves:
+                self._game_tree = best_move
+                return best_move.move
+            else:
+                move = random.choice(valid_moves)
+                return move
+        elif game.is_white_move() == False:
+            worst_move = subtrees[0]
+            for move in subtrees:
+                if move.white_win_probability < worst_move.white_win_probability:
+                    if worst_move.move in valid_moves:
+                        worst_move = move
+            if worst_move.move in valid_moves:
+                self._game_tree = worst_move
+                return worst_move.move
+            else:
+                move = random.choice(valid_moves)
+                return move
 
 
 def run_learning_algorithm(exploration_probabilities: list[float],
@@ -87,8 +142,25 @@ def run_learning_algorithm(exploration_probabilities: list[float],
     # Play games using the ExploringPlayer and update the GameTree after each one
     results_so_far = []
 
-    # Write your loop here, according to the description above.
+    stats = {'White': 0, 'Black': 0, 'Draw': 0}
 
+    # Write your loop here, according to the description above.
+    for i in range(len(exploration_probabilities)):
+        white = ExploringPlayer(game_tree, exploration_probabilities[i])
+        black = a2_minichess.RandomPlayer()
+
+        winner, move_sequence = a2_minichess.run_game(white, black)
+        stats[winner] += 1
+        results_so_far.append(winner)
+        if winner == 'White':
+            game_tree.insert_move_sequence(move_sequence, 1.0)
+        else:
+            game_tree.insert_move_sequence(move_sequence)
+
+        print(f'Game {i} winner: {winner}')
+
+    for outcome in stats:
+        print(f'{outcome}: {stats[outcome]}/{len(exploration_probabilities)} ({100.0 * stats[outcome] / len(exploration_probabilities):.2f}%)')
     if show_stats:
         a2_minichess.plot_game_statistics(results_so_far)
 
@@ -102,19 +174,26 @@ def part3_runner() -> a2_game_tree.GameTree:
     We encourage you to experiment with different exploration probability sequences
     to see how quickly you can develop a "winning" GameTree!
     """
-    probabilities = [0.0] * 700
+    # probabilities = [0.0] * 700
+    probabilities = []
+    i = 1.0
+    while i > 0.0:
+        probabilities.append(i)
+        i = i - 0.005
+
+    probabilities.extend([0.0] * 600)
 
     return run_learning_algorithm(probabilities)
 
 
-if __name__ == '__main__':
-    import python_ta
-    python_ta.check_all(config={
-        'max-line-length': 100,
-        'max-nested-blocks': 4,
-        'disable': ['E1136'],
-        'extra-imports': ['random', 'a2_minichess', 'a2_game_tree'],
-        'allowed-io': ['run_learning_algorithm']
-    })
+# if __name__ == '__main__':
+#     import python_ta
+#     python_ta.check_all(config={
+#         'max-line-length': 100,
+#         'max-nested-blocks': 4,
+#         'disable': ['E1136'],
+#         'extra-imports': ['random', 'a2_minichess', 'a2_game_tree'],
+#         'allowed-io': ['run_learning_algorithm']
+#     })
 
-    part3_runner()
+    # part3_runner()
