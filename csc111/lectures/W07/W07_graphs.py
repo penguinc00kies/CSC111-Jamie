@@ -42,6 +42,17 @@ class _Vertex:
         Preconditions:
             - self not in visited
         """
+        if self.item == target_item:
+            return True
+        else:
+            for u in self.neighbours:
+                if u in visited:
+                    return False
+                else:
+                    visited.add(u)
+                if u.check_connected(target_item, visited):
+                    return True
+            return False
 
 
 class Graph:
@@ -93,6 +104,7 @@ class Graph:
 
         Return False if item1 or item2 do not appear as vertices in this graph.
         """
+        return item1 in self._vertices[item2].neighbours and item2 in self._vertices[item1].neighbours
 
     def num_edges(self) -> int:
         """Return the number of edges in this graph."""
@@ -107,3 +119,8 @@ class Graph:
         Return False if item1 or item2 do not appear as vertices
         in this graph.
         """
+        if item1 in self._vertices and item2 in self._vertices:
+            v1 = self._vertices[item1]
+            return v1.check_connected(item2, set())
+        else:
+            return False

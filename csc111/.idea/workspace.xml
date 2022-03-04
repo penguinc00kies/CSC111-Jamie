@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f7a1f784-4476-4766-8139-9d56a4f6a055" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignments/a2/a2_game_tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/assignments/a2/a2_game_tree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignments/a2/a2_minichess.py" beforeDir="false" afterPath="$PROJECT_DIR$/assignments/a2/a2_minichess.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignments/a2/a2_part2.py" beforeDir="false" afterPath="$PROJECT_DIR$/assignments/a2/a2_part2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignments/a2/a2_part3.py" beforeDir="false" afterPath="$PROJECT_DIR$/assignments/a2/a2_part3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lectures/W07/W07_graphs.py" beforeDir="false" afterPath="$PROJECT_DIR$/lectures/W07/W07_graphs.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +66,9 @@
       <module name="csc111" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/assignments/a2" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -87,6 +87,9 @@
       <module name="csc111" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/assignments/a2" />
       <option name="IS_MODULE_SDK" value="true" />
