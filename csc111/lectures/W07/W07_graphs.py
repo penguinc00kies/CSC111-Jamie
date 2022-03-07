@@ -45,13 +45,11 @@ class _Vertex:
         if self.item == target_item:
             return True
         else:
+            visited.add(self)  # Add self to the list of visited vertices
             for u in self.neighbours:
-                if u in visited:
-                    return False
-                else:
-                    visited.add(u)
-                if u.check_connected(target_item, visited):
-                    return True
+                if u not in visited:  # Only recurse on vertices that haven't been visited
+                    if u.check_connected(target_item, visited):
+                        return True
             return False
 
 
