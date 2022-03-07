@@ -203,14 +203,15 @@ class _Vertex:
                when all vertices in self.neighbours are already in visited.
             3. Use a loop accumulator to store a set of the vertices connected to self.
         """
-        if all([neighbour in visited for neighbour in self.neighbours]):
+        if all(neighbours in visited for neighbours in self.neighbours):
             return set()
         else:
             connected = set()
             for neighbour in self.neighbours:
                 if neighbour not in visited:
                     connected.add(neighbour.item)
-                    connected = connected.union(neighbour.get_connected_component(visited.union({neighbour})))
+                    connected = connected.union(neighbour.get_connected_component(
+                        visited.union({neighbour})))
             return connected
 
 
