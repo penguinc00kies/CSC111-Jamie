@@ -42,7 +42,7 @@ def is_sorted(lst: list) -> bool:
     False
     """
     for i in range(len(lst) - 2):
-        if lst[i] > lst[i+1]:
+        if lst[i] > lst[i + 1]:
             return False
     return True
 
@@ -66,8 +66,8 @@ def is_sorted_sublist(lst: list, b: int, e: int) -> bool:
     """
     if b >= e:
         return True
-    for i in range(b, e-1):
-        if lst[i] > lst[i+1]:
+    for i in range(b, e - 1):
+        if lst[i] > lst[i + 1]:
             return False
     return True
 
@@ -139,11 +139,11 @@ def cycle(lst: list) -> None:
     if len(lst) > 1:
         item_placeholder = lst[0]
         lst[0] = lst[-1]
-        for i in range(1, len(lst)-1):
+        for i in range(1, len(lst) - 1):
             new_item = lst[i]
             lst[i] = item_placeholder
             item_placeholder = new_item
-        lst[len(lst)-1] = item_placeholder
+        lst[len(lst) - 1] = item_placeholder
 
 
 def cycle_sublist(lst: list, b: int, e: int) -> None:
@@ -165,12 +165,13 @@ def cycle_sublist(lst: list, b: int, e: int) -> None:
     """
     if e - b > 1:
         item_placeholder = lst[b]
-        lst[b] = lst[e-1]
-        for i in range(b+1, e-1):
+        lst[b] = lst[e - 1]
+        for i in range(b + 1, e - 1):
             new_item = lst[i]
             lst[i] = item_placeholder
             item_placeholder = new_item
         lst[e - 1] = item_placeholder
+
 
 # if __name__ == '__main__':
 #     import python_ta.contracts
