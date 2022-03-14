@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7a1f784-4476-4766-8139-9d56a4f6a055" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/lectures/W08/w08_graphs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lectures/W07/W07_graphs.py" beforeDir="false" afterPath="$PROJECT_DIR$/lectures/W07/W07_graphs.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,17 +41,17 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python tests.Doctest Graph.get_connected_component">
-    <configuration name="prep8" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python tests.Doctest cycle_sublist">
+    <configuration name="prep9" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="csc111" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/practice/W08" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/practice/W09" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practice/W08/prep8.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practice/W09/prep9.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -58,85 +60,85 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Doctest Graph.get_connected_component" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+    <configuration name="Doctest cycle" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
       <module name="csc111" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/practice/W08" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/practice/W09" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practice/W08/prep8.py" />
-      <option name="CLASS_NAME" value="Graph" />
-      <option name="METHOD_NAME" value="get_connected_component" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practice/W09/prep9.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="cycle" />
       <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="TEST_TYPE" value="TEST_FUNCTION" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Doctests in prep8 (1)" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+    <configuration name="Doctest cycle_sublist" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
       <module name="csc111" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/practice/W08" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/practice/W09" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practice/W08/prep8.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practice/W09/prep9.py" />
       <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
+      <option name="METHOD_NAME" value="cycle_sublist" />
       <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="TEST_TYPE" value="TEST_FUNCTION" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Doctests in prep8 (2)" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+    <configuration name="Doctest min_index" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
       <module name="csc111" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/practice/W08" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/practice/W09" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practice/W08/prep8.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practice/W09/prep9.py" />
       <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
+      <option name="METHOD_NAME" value="min_index" />
       <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="TEST_TYPE" value="TEST_FUNCTION" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Doctests in prep8 (3)" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+    <configuration name="Doctest min_index_sublist" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
       <module name="csc111" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/practice/W08" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/practice/W09" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practice/W08/prep8.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practice/W09/prep9.py" />
       <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
+      <option name="METHOD_NAME" value="min_index_sublist" />
       <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="TEST_TYPE" value="TEST_FUNCTION" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Doctest Graph.get_connected_component" />
-        <item itemvalue="Python tests.Doctests in prep8 (3)" />
-        <item itemvalue="Python tests.Doctests in prep8 (2)" />
-        <item itemvalue="Python.prep8" />
-        <item itemvalue="Python tests.Doctests in prep8 (1)" />
+        <item itemvalue="Python tests.Doctest cycle_sublist" />
+        <item itemvalue="Python.prep9" />
+        <item itemvalue="Python tests.Doctest cycle" />
+        <item itemvalue="Python tests.Doctest min_index" />
+        <item itemvalue="Python tests.Doctest min_index_sublist" />
       </list>
     </recent_temporary>
   </component>

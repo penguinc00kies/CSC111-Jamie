@@ -45,7 +45,7 @@ class _Vertex:
         if self.item == target_item:
             return True
         else:
-            visited.add(self)  # Add self to the list of visited vertices
+            new_visited = set.union(visited, {self})
             for u in self.neighbours:
                 if u not in visited:  # Only recurse on vertices that haven't been visited
                     if u.check_connected(target_item, visited):
@@ -102,10 +102,17 @@ class Graph:
 
         Return False if item1 or item2 do not appear as vertices in this graph.
         """
-        return item1 in self._vertices[item2].neighbours and item2 in self._vertices[item1].neighbours
+        # return item1 in self._vertices[item2].neighbours and item2 in self._vertices[item1].neighbours
+        if item1 in self._vertices and item2 in self._vertices:
+            v1 = self._vertices[item1]
+            return any(item2 == v2.item for v2 in v1.neighbours)
+        else:
+            return False
 
     def num_edges(self) -> int:
         """Return the number of edges in this graph."""
+        total_degree = sum(len(v.neighbours) for v in self._vertices.values())
+        return total_degree//2
 
     ################################################################################################
     # Demo
