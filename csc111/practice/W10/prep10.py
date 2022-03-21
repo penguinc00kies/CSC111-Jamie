@@ -173,7 +173,7 @@ def merge_sublists(lst: list, b: int, m: int, e: int) -> None:
     i1, i2 = 0, 0
     sorted_so_far = []
 
-    while i1 < m-b and i2 < e-m:
+    while i1 < m - b and i2 < e - m:
         # Loop invariant:
         # sorted_so_far is a merged version of lst1[:i1] and lst2[:i2]
         assert sorted_so_far == sorted(lst1[:i1] + lst2[:i2])
@@ -186,10 +186,10 @@ def merge_sublists(lst: list, b: int, m: int, e: int) -> None:
             i2 += 1
 
     # When the loop is over, either i1 == len(lst1) or i2 == len(lst2)
-    assert i1 == m-b or i2 == e-m
+    assert i1 == m - b or i2 == e - m
 
     # In either case, the remaining unmerged elements can be concatenated to sorted_so_far.
-    if i1 == m-b:
+    if i1 == m - b:
         temp = start + sorted_so_far + lst2[i2:] + end
     else:
         temp = start + sorted_so_far + lst1[i1:] + end
