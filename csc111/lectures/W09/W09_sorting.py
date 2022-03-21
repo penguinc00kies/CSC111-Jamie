@@ -32,6 +32,15 @@ def selection_sort_simple(lst: list) -> list:
 ################################################################################################
 # Demo
 ################################################################################################
+def is_sorted(lst: list) -> bool:
+    """Return whether lst is sorted.
+    """
+    for i in range(len(lst) - 2):
+        if lst[i] > lst[i + 1]:
+            return False
+    return True
+
+
 def selection_sort(lst: list) -> None:
     """Sort the given list using the selection sort algorithm.
 
@@ -42,11 +51,15 @@ def selection_sort(lst: list) -> None:
     >>> lst
     [2, 3, 5, 7]
     """
-    for i in range(0, len(lst)):
+    for i in range(0, len(lst)-1):
         # Loop invariants
-        #   - lst[:i] is sorted
-        #   - if i > 0, lst[i - 1] is less than or equal to all items in lst[i:len(lst)]
-        ...
+        assert is_sorted(lst[:i])
+        assert i == 0 or all(lst[i - 1] <= lst[j] for j in range(i, len(lst)))
+
+        # Find the index of the smallest item in lst[i:] and swap that
+        # item with the item at index i.
+        index_of_smallest = _min_index(lst, i)
+        lst[index_of_smallest], lst[i] = lst[i], lst[index_of_smallest]
 
 
 ################################################################################################
@@ -63,6 +76,12 @@ def _min_index(lst: list, i: int) -> int:
     >>> _min_index([2, 7, 3, 5], 1)
     2
     """
+    smallest_index = i
+
+    for j in range(i + 1, len(lst)):
+        if lst[j] < lst[smallest_index]:
+            smallest_index = j
+    return smallest_index
 
 
 ################################################################################################
@@ -96,6 +115,15 @@ def _insert(lst: list, i: int) -> None:
     >>> lst
     [3, 7, 5, 2]
     """
+    while i != 0 and lst[i] < lst[i - 1]:
+        lst[i], lst[i - 1] = lst[i - 1], lst[i]
+        i = i - 1
+
+    # for j in range(i, 0, -1):
+    #     if lst[j] >= lst[j - 1]:
+    #         return
+    #     else:
+    #         lst[j], lst[j - 1] = lst[j - 1], lst[j]
 
 
 ################################################################################################
@@ -117,6 +145,7 @@ def insertion_sort_by_key(lst: list, key: Optional[Callable] = None) -> None:
     >>> lst2
     ['cat', 'david', 'hi', 'octopus']
 
+
     Preconditions:
         - if key is not None, then it can be called without error on every item in lst
     """
@@ -132,15 +161,36 @@ def _insert_by_key(lst: list, i: int, key: Optional[Callable] = None) -> None:
     Preconditions:
         - 0 <= i < len(lst)
     """
+    if key is None:
+        for j in range(i, 0, -1):
+            if lst[j] >= lst[j - 1]:
+                return
+            else:
+                lst[j], lst[j - 1] = lst[j - 1], lst[j]
+    else:
+        for j in range(i, 0, -1):
+            if key(lst[j]) >= key(lst[j - 1]):
+                return
+            else:
+                lst[j], lst[j - 1] = lst[j - 1], lst[j]
 
 
 ################################################################################################
 # Exercise 5
 ################################################################################################
 def insertion_sort_memoized(lst: list,
-                            key: Optional[Callable] = None) -> None:
+                            key: Callable = None) -> None:
     # Initialize a dictionary to store the results of calling `key`
     key_values = {}
 
-    # for i in range(0, len(lst)):
-        # _insert_memoized(lst, i, key, key_values)
+    for i in range(0, len(lst)):
+        _insert_memoized(lst, i, key, key_values)
+
+
+def _insert_memoized(lst: list, i: int, key: Callable, key_values: dict) -> None:
+    for j in range(i, 0, -1):
+        if key(lst[j]) >= key(lst[j - 1]):
+            key_values[lst[j]] = key(lst[j])
+            return
+        else:
+            lst[j], lst[j - 1] = lst[j - 1], lst[j]
