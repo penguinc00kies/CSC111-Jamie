@@ -101,7 +101,7 @@ def _in_place_partition(lst: list) -> None:
 ################################################################################
 def in_place_quicksort(lst: list) -> None:
     """Sort the given list using the quicksort algorithm."""
-    
+
 
 def _in_place_quicksort(lst: list, b: int, e: int) -> None:
     """Sort the given list[b: e using the quicksort algorithm.

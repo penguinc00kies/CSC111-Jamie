@@ -264,15 +264,14 @@ def load_review_graph(reviews_file: str, book_names_file: str) -> Graph:
         # book_names = [(row[0], row[1]) for row in reader]
         for row in reader:
             book_names[row[0]] = row[1]
-    # print(book_names)
-    # print(len(book_names))
+
     for book in list(book_names.values()):
         book_graph.add_vertex(book, 'book')
 
     with open(reviews_file) as file:
         reader = csv.reader(file)
         reviews = [(row[0], row[1], row[2]) for row in reader]
-    # print(reviews)
+
     for review in reviews:
         if review[0] not in book_graph.get_all_vertices('user'):
             book_graph.add_vertex(review[0], 'user')
