@@ -74,12 +74,24 @@ class _WeightedVertex:
         similarity score for _Vertex (from Part 1). That is, just look at edges,
         and ignore the weights.
         """
+        if self.degree() == 0 or other.degree() == 0:
+            return 0.0
+        else:
+            numerator = sum([1 for vertex in self.neighbours if vertex in other.neighbours])
+            denominator = sum([1 for vertex in (set(self.neighbours.keys()).union(set(other.neighbours.keys())))])
+            return numerator / denominator
 
     def similarity_score_strict(self, other: _WeightedVertex) -> float:
         """Return the strict weighted similarity score between this vertex and other.
 
         See Assignment handout for details.
         """
+        if self.degree() == 0 or other.degree() == 0:
+            return 0.0
+        else:
+            numerator = sum([1 for vertex in self.neighbours if vertex in other.neighbours if vertex.neighbours[self] == vertex.neighbours[other]])
+            denominator = sum([1 for vertex in (set(self.neighbours.keys()).union(set(other.neighbours.keys())))])
+            return numerator / denominator
 
 
 class WeightedGraph(Graph):
@@ -171,7 +183,26 @@ class WeightedGraph(Graph):
 
         Preconditions:
             - score_type in {'unweighted', 'strict'}
+        >>> g = WeightedGraph()
+        >>> for i in range(0, 6):
+        ...     g.add_vertex(str(i), kind='user')
+        >>> g.add_edge('0', '2', 1)
+        >>> g.add_edge('0', '3', 1)
+        >>> g.add_edge('0', '4', 1)
+        >>> g.add_edge('1', '3', 2)
+        >>> g.add_edge('1', '4', 1)
+        >>> g.add_edge('1', '5', 5)
+        >>> g.get_similarity_score('0', '1', 'unweighted')
+        0.5
+        >>> g.get_similarity_score('0', '1', 'strict')
+        0.25
         """
+        if item1 not in self.get_all_vertices() or item2 not in self.get_all_vertices():
+            raise ValueError
+        elif score_type == 'unweighted':
+            return self._vertices[item1].similarity_score_unweighted(self._vertices[item2])
+        else:
+            return self._vertices[item1].similarity_score_strict(self._vertices[item2])
 
     def recommend_books(self, book: str, limit: int,
                         score_type: str = 'unweighted') -> list[str]:
@@ -203,6 +234,34 @@ class WeightedGraph(Graph):
             - limit >= 1
             - score_type in {'unweighted', 'strict'}
         """
+        scores = []
+        scores_and_books = {}
+
+        if score_type == 'unweighted':
+            for other_book in self._vertices:
+                ob = self._vertices[other_book]
+                if ob.kind == 'book' and ob != self._vertices[book]:
+                    sc = self._vertices[book].similarity_score_unweighted(ob)
+                    scores.append(sc)
+                    scores_and_books[sc] = ob.item
+        else:
+            for other_book in self._vertices:
+                ob = self._vertices[other_book]
+                if ob.kind == 'book' and ob != self._vertices[book]:
+                    sc = self._vertices[book].similarity_score_strict(ob)
+                    scores.append(sc)
+                    scores_and_books[sc] = ob.item
+
+        scores.sort(reverse=True)
+
+        counter = 0
+        recommendations = []
+        for score in scores:
+            if counter < limit:
+                recommendations.append(scores_and_books[score])
+                counter += 1
+
+        return recommendations
 
 
 ################################################################################

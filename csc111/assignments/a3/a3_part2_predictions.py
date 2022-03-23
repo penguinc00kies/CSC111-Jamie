@@ -154,6 +154,21 @@ class SimilarUserPredictor(ReviewScorePredictor):
             - user in self.graph._vertices
             - book in self.graph._vertices
         """
+        if self.graph.adjacent(user, book):
+            return self.graph.get_weight(user, book)
+        else:
+            numerator = sum([self.graph.get_weight(diff_user, book) * self.graph.get_similarity_score(diff_user, user, score_type=self._score_type) for diff_user in self.graph.get_neighbours(book)])
+            denominator = sum([self.graph.get_similarity_score(diff_user, user, score_type=self._score_type) for diff_user in self.graph.get_neighbours(book)])
+            # final_review = numerator / denominator
+            # if final_review != 0:
+            #     return round(final_review)
+            # else:
+            #     return round(self.graph.average_weight(book))
+            if numerator == 0 or denominator == 0:
+                return round(self.graph.average_weight(book))
+            else:
+                final_review = numerator / denominator
+                return round(final_review)
 
 
 ################################################################################
@@ -184,15 +199,36 @@ def evaluate_predictor(predictor: ReviewScorePredictor,
         - all users and books in test_file are in predictor.graph
           format described on the assignment handout
     """
+    num_reviews = 0
+    num_correct = 0
+    all_predictions = []
+    average_error = 0
+    book_names = {}
+
+    with open(book_names_file) as file:
+        reader = csv.reader(file)
+        for row in reader:
+            book_names[row[0]] = row[1]
+
+    with open(test_file) as file:
+        reader = csv.reader(file)
+        for row in reader:
+            actual_review = int(row[2])
+            predicted_review = predictor.predict_review_score(row[0], book_names[row[1]])
+            all_predictions.append(abs(actual_review - predicted_review))
+            num_reviews += 1
+            if actual_review == predicted_review:
+                num_correct += 1
+            average_error = sum(all_predictions) / num_reviews
 
     return {
-        'num_reviews': ...,
-        'num_correct': ...,
-        'average_error': ...,
+        'num_reviews': num_reviews,
+        'num_correct': num_correct,
+        'average_error': average_error,
     }
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # You can uncomment the following lines for code checking/debugging purposes.
     # However, we recommend commenting out these lines when working with the large
     # datasets, as checking representation invariants and preconditions greatly
@@ -200,11 +236,11 @@ if __name__ == '__main__':
     # import python_ta.contracts
     # python_ta.contracts.check_all_contracts()
 
-    import python_ta
-    python_ta.check_all(config={
-        'max-line-length': 1000,
-        'disable': ['E1136'],
-        'extra-imports': ['csv', 'a3_part2_recommendations'],
-        'allowed-io': ['evaluate_predictor'],
-        'max-nested-blocks': 4
-    })
+    # import python_ta
+    # python_ta.check_all(config={
+    #     'max-line-length': 1000,
+    #     'disable': ['E1136'],
+    #     'extra-imports': ['csv', 'a3_part2_recommendations'],
+    #     'allowed-io': ['evaluate_predictor'],
+    #     'max-nested-blocks': 4
+    # })

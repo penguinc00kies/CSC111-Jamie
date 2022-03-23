@@ -46,6 +46,19 @@ def create_book_graph(review_graph: WeightedGraph,
     Preconditions:
         - score_type in {'unweighted', 'strict'}
     """
+    book_graph = WeightedGraph()
+
+    for book_name in review_graph.get_all_vertices(kind='book'):
+        book_graph.add_vertex(book_name, 'book')
+
+    for book in book_graph.get_all_vertices():
+        for other_book in book_graph.get_all_vertices():
+            if book != other_book:
+                similarity = book_graph.get_similarity_score(book, other_book, score_type=score_type)
+                if similarity > threshold:
+                    book_graph.add_edge(book, other_book, similarity)
+
+    return book_graph
 
 
 ################################################################################
