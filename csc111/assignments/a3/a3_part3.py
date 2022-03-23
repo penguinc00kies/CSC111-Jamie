@@ -48,13 +48,11 @@ def create_book_graph(review_graph: WeightedGraph,
     """
     book_graph = WeightedGraph()
 
-    for book_name in review_graph.get_all_vertices(kind='book'):
-        book_graph.add_vertex(book_name, 'book')
-
-    for book in book_graph.get_all_vertices():
+    for book in review_graph.get_all_vertices(kind='book'):
+        book_graph.add_vertex(book, 'book')
         for other_book in book_graph.get_all_vertices():
             if book != other_book:
-                similarity = book_graph.get_similarity_score(book, other_book, score_type=score_type)
+                similarity = review_graph.get_similarity_score(book, other_book, score_type=score_type)
                 if similarity > threshold:
                     book_graph.add_edge(book, other_book, similarity)
 
@@ -74,6 +72,14 @@ def cross_cluster_weight(book_graph: WeightedGraph, cluster1: set, cluster2: set
         - cluster1.isdisjoint(cluster2)
         - Every item in cluster1 and cluster2 is a vertex in book_graph
     """
+    numerator = 0
+    denominator = len(cluster1) * len(cluster2)
+
+    for v1 in cluster1:
+        for v2 in cluster2:
+            numerator = numerator + book_graph.get_weight(v1, v2)
+
+    return numerator / denominator
 
 
 ################################################################################
@@ -145,7 +151,7 @@ def find_clusters_greedy(graph: WeightedGraph, num_clusters: int) -> list[set]:
     return clusters
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # You can uncomment the following lines for code checking/debugging purposes.
     # However, we recommend commenting out these lines when working with the large
     # datasets, as checking representation invariants and preconditions greatly
@@ -153,14 +159,14 @@ if __name__ == '__main__':
     # import python_ta.contracts
     # python_ta.contracts.check_all_contracts()
 
-    import doctest
-    doctest.testmod()
-
-    import python_ta
-    python_ta.check_all(config={
-        'max-line-length': 1000,
-        'disable': ['E1136'],
-        'extra-imports': ['random', 'a3_part2_recommendations'],
-        'allowed-io': ['find_clusters_greedy', 'find_clusters_random'],
-        'max-nested-blocks': 4
-    })
+    # import doctest
+    # doctest.testmod()
+    #
+    # import python_ta
+    # python_ta.check_all(config={
+    #     'max-line-length': 1000,
+    #     'disable': ['E1136'],
+    #     'extra-imports': ['random', 'a3_part2_recommendations'],
+    #     'allowed-io': ['find_clusters_greedy', 'find_clusters_random'],
+    #     'max-nested-blocks': 4
+    # })

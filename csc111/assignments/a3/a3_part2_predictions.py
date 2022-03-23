@@ -228,7 +228,7 @@ def evaluate_predictor(predictor: ReviewScorePredictor,
     }
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
     # You can uncomment the following lines for code checking/debugging purposes.
     # However, we recommend commenting out these lines when working with the large
     # datasets, as checking representation invariants and preconditions greatly
@@ -236,11 +236,11 @@ def evaluate_predictor(predictor: ReviewScorePredictor,
     # import python_ta.contracts
     # python_ta.contracts.check_all_contracts()
 
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 1000,
-    #     'disable': ['E1136'],
-    #     'extra-imports': ['csv', 'a3_part2_recommendations'],
-    #     'allowed-io': ['evaluate_predictor'],
-    #     'max-nested-blocks': 4
-    # })
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 1000,
+        'disable': ['E1136'],
+        'extra-imports': ['csv', 'a3_part2_recommendations'],
+        'allowed-io': ['evaluate_predictor'],
+        'max-nested-blocks': 4
+    })

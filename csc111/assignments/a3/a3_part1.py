@@ -73,9 +73,10 @@ class _Vertex:
         if self.degree() == 0 or other.degree() == 0:
             return 0.0
         else:
-            numerator = sum([1 for vertex in self.neighbours if vertex in other.neighbours])
-            denominator = sum([1 for vertex in (self.neighbours.union(other.neighbours))])
+            numerator = len([vertex for vertex in self.neighbours if vertex in other.neighbours])
+            denominator = len(self.neighbours.union(other.neighbours))
             return numerator / denominator
+
 
 class Graph:
     """A graph used to represent a book review network.
@@ -200,7 +201,7 @@ class Graph:
         >>> g.get_similarity_score('0', '1')
         0.5
         """
-        if item1 not in self.get_all_vertices() or item2 not in self.get_all_vertices():
+        if item1 not in self._vertices or item2 not in self._vertices:
             raise ValueError
         else:
             return self._vertices[item1].similarity_score(self._vertices[item2])
@@ -292,18 +293,15 @@ def load_review_graph(reviews_file: str, book_names_file: str) -> Graph:
         for row in reader:
             book_names[row[0]] = row[1]
 
-    for book in list(book_names.values()):
-        book_graph.add_vertex(book, 'book')
-
     with open(reviews_file) as file:
         reader = csv.reader(file)
-        reviews = [(row[0], row[1], row[2]) for row in reader]
+        reviews = [(r[0], r[1], r[2]) for r in reader]
 
     for review in reviews:
+        if book_names[review[1]] not in book_graph.get_all_vertices('book'):
+            book_graph.add_vertex(book_names[review[1]], 'book')
         if review[0] not in book_graph.get_all_vertices('user'):
             book_graph.add_vertex(review[0], 'user')
-
-    for review in reviews:
         book_graph.add_edge(review[0], book_names[review[1]])
 
     return book_graph
