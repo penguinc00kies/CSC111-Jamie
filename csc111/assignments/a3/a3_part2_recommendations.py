@@ -220,6 +220,29 @@ def load_weighted_review_graph(reviews_file: str, book_names_file: str) -> Weigh
         - book_names_file is the path to a CSV file corresponding to the book data
           format described on the assignment handout
     """
+    book_graph = WeightedGraph()
+    book_names = {}
+
+    with open(book_names_file) as file:
+        reader = csv.reader(file)
+        for row in reader:
+            book_names[row[0]] = row[1]
+
+    for book in list(book_names.values()):
+        book_graph.add_vertex(book, 'book')
+
+    with open(reviews_file) as file:
+        reader = csv.reader(file)
+        reviews = [(row[0], row[1], row[2]) for row in reader]
+
+    for review in reviews:
+        if review[0] not in book_graph.get_all_vertices('user'):
+            book_graph.add_vertex(review[0], 'user')
+
+    for review in reviews:
+        book_graph.add_edge(review[0], book_names[review[1]], int(review[2]))
+
+    return book_graph
 
 
 if __name__ == '__main__':

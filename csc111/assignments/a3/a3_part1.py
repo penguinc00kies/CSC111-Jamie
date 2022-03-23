@@ -70,7 +70,12 @@ class _Vertex:
 
         See Assignment handout for definition of similarity score.
         """
-
+        if self.degree() == 0 or other.degree() == 0:
+            return 0.0
+        else:
+            numerator = sum([1 for vertex in self.neighbours if vertex in other.neighbours])
+            denominator = sum([1 for vertex in (self.neighbours.union(other.neighbours))])
+            return numerator / denominator
 
 class Graph:
     """A graph used to represent a book review network.
@@ -195,6 +200,10 @@ class Graph:
         >>> g.get_similarity_score('0', '1')
         0.5
         """
+        if item1 not in self.get_all_vertices() or item2 not in self.get_all_vertices():
+            raise ValueError
+        else:
+            return self._vertices[item1].similarity_score(self._vertices[item2])
 
     ############################################################################
     # Part 1, Q4
@@ -222,6 +231,25 @@ class Graph:
             - self._vertices[book].kind == 'book'
             - limit >= 1
         """
+        scores = []
+        scores_and_books = {}
+
+        for other_book in self._vertices:
+            ob = self._vertices[other_book]
+            if ob.kind == 'book' and ob != self._vertices[book]:
+                sc = self._vertices[book].similarity_score(ob)
+                scores.append(sc)
+                scores_and_books[sc] = ob.item
+        scores.sort(reverse=True)
+
+        counter = 0
+        recommendations = []
+        for score in scores:
+            if counter < limit:
+                recommendations.append(scores_and_books[score])
+                counter += 1
+
+        return recommendations
 
 
 ################################################################################
@@ -261,7 +289,6 @@ def load_review_graph(reviews_file: str, book_names_file: str) -> Graph:
 
     with open(book_names_file) as file:
         reader = csv.reader(file)
-        # book_names = [(row[0], row[1]) for row in reader]
         for row in reader:
             book_names[row[0]] = row[1]
 
@@ -280,9 +307,6 @@ def load_review_graph(reviews_file: str, book_names_file: str) -> Graph:
         book_graph.add_edge(review[0], book_names[review[1]])
 
     return book_graph
-
-
-
 
 
 # if __name__ == '__main__':
