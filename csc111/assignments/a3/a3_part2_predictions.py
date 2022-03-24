@@ -157,13 +157,11 @@ class SimilarUserPredictor(ReviewScorePredictor):
         if self.graph.adjacent(user, book):
             return self.graph.get_weight(user, book)
         else:
-            numerator = sum([self.graph.get_weight(diff_user, book) * self.graph.get_similarity_score(diff_user, user, score_type=self._score_type) for diff_user in self.graph.get_neighbours(book)])
-            denominator = sum([self.graph.get_similarity_score(diff_user, user, score_type=self._score_type) for diff_user in self.graph.get_neighbours(book)])
-            # final_review = numerator / denominator
-            # if final_review != 0:
-            #     return round(final_review)
-            # else:
-            #     return round(self.graph.average_weight(book))
+            numerator = sum([self.graph.get_weight(diff_user, book)
+                             * self.graph.get_similarity_score(diff_user, user, score_type=self._score_type) for
+                             diff_user in self.graph.get_neighbours(book)])
+            denominator = sum([self.graph.get_similarity_score(diff_user, user, score_type=self._score_type)
+                               for diff_user in self.graph.get_neighbours(book)])
             if numerator == 0 or denominator == 0:
                 return round(self.graph.average_weight(book))
             else:

@@ -292,10 +292,8 @@ def load_weighted_review_graph(reviews_file: str, book_names_file: str) -> Weigh
         reviews = [(r[0], r[1], r[2]) for r in reader]
 
     for review in reviews:
-        if book_names[review[1]] not in book_graph.get_all_vertices('book'):
-            book_graph.add_vertex(book_names[review[1]], 'book')
-        if review[0] not in book_graph.get_all_vertices('user'):
-            book_graph.add_vertex(review[0], 'user')
+        book_graph.add_vertex(book_names[review[1]], 'book')
+        book_graph.add_vertex(review[0], 'user')
         book_graph.add_edge(review[0], book_names[review[1]], int(review[2]))
 
     return book_graph

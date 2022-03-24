@@ -19,7 +19,7 @@ This file is Copyright (c) 2022 Mario Badr, David Liu, and Isaac Waller.
 """
 import random
 
-from a3_part2_recommendations import WeightedGraph, load_weighted_review_graph
+from a3_part2_recommendations import WeightedGraph
 
 
 ################################################################################
@@ -151,7 +151,7 @@ def find_clusters_greedy(graph: WeightedGraph, num_clusters: int) -> list[set]:
     return clusters
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
     # You can uncomment the following lines for code checking/debugging purposes.
     # However, we recommend commenting out these lines when working with the large
     # datasets, as checking representation invariants and preconditions greatly
@@ -159,14 +159,14 @@ def find_clusters_greedy(graph: WeightedGraph, num_clusters: int) -> list[set]:
     # import python_ta.contracts
     # python_ta.contracts.check_all_contracts()
 
-    # import doctest
-    # doctest.testmod()
-    #
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 1000,
-    #     'disable': ['E1136'],
-    #     'extra-imports': ['random', 'a3_part2_recommendations'],
-    #     'allowed-io': ['find_clusters_greedy', 'find_clusters_random'],
-    #     'max-nested-blocks': 4
-    # })
+    import doctest
+    doctest.testmod()
+
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 1000,
+        'disable': ['E1136'],
+        'extra-imports': ['random', 'a3_part2_recommendations'],
+        'allowed-io': ['find_clusters_greedy', 'find_clusters_random'],
+        'max-nested-blocks': 4
+    })

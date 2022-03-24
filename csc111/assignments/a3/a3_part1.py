@@ -298,31 +298,29 @@ def load_review_graph(reviews_file: str, book_names_file: str) -> Graph:
         reviews = [(r[0], r[1], r[2]) for r in reader]
 
     for review in reviews:
-        #if book_names[review[1]] not in book_graph.get_all_vertices('book'):
         book_graph.add_vertex(book_names[review[1]], 'book')
-        # if review[0] not in book_graph.get_all_vertices('user'):
         book_graph.add_vertex(review[0], 'user')
         book_graph.add_edge(review[0], book_names[review[1]])
 
     return book_graph
 
 
-# if __name__ == '__main__':
-#     # You can uncomment the following lines for code checking/debugging purposes.
-#     # However, we recommend commenting out these lines when working with the large
-#     # datasets, as checking representation invariants and preconditions greatly
-#     # increases the running time of the functions/methods.
-#     # import python_ta.contracts
-#     # python_ta.contracts.check_all_contracts()
-#
-#     import doctest
-#     doctest.testmod()
-#
-#     import python_ta
-#     python_ta.check_all(config={
-#         'max-line-length': 100,
-#         'disable': ['E1136'],
-#         'extra-imports': ['csv', 'networkx'],
-#         'allowed-io': ['load_review_graph'],
-#         'max-nested-blocks': 4
-#     })
+if __name__ == '__main__':
+    # You can uncomment the following lines for code checking/debugging purposes.
+    # However, we recommend commenting out these lines when working with the large
+    # datasets, as checking representation invariants and preconditions greatly
+    # increases the running time of the functions/methods.
+    # import python_ta.contracts
+    # python_ta.contracts.check_all_contracts()
+
+    import doctest
+    doctest.testmod()
+
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 100,
+        'disable': ['E1136'],
+        'extra-imports': ['csv', 'networkx'],
+        'allowed-io': ['load_review_graph'],
+        'max-nested-blocks': 4
+    })
