@@ -148,7 +148,7 @@ def part1_runner(games_file: str, n: int, black_random: bool) -> None:
     else:
         black = RandomTreePlayer(gt)
 
-    a2_minichess.run_games(n, white, black)
+    a2_minichess.run_games(n, white, black, visualize=True)
 
 
 if __name__ == '__main__':
